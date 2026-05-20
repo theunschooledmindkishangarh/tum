@@ -60,7 +60,7 @@ export default function ContactSection() {
             Get in Touch
           </span>
           <h2 className="font-display font-bold text-3xl sm:text-4xl text-brand-green leading-tight">
-            Schedule a <span className="italic font-normal text-brand-clay">Sanctuary Day Visit</span>
+            Contact For <span className="italic font-normal text-brand-clay">Admission</span>
           </h2>
           <p className="font-rounded font-medium text-brand-green/70 text-sm mt-3">
             Bring your child down to our Kishangarh center to play with clay, touch the carpentry logs, and feel the natural learning model themselves. Let's grow together.
@@ -203,7 +203,7 @@ export default function ContactSection() {
                     "Transmitting enquiry..."
                   ) : (
                     <>
-                      Submit Sanctuary Request
+                      Submit Admission Inquiry
                       <Send className="w-4 h-4" />
                     </>
                   )}

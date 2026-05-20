@@ -156,12 +156,12 @@ export default function Hero3D() {
               <div className="text-xs text-brand-green/60 font-semibold uppercase tracking-wider mt-0.5">Self-Directed</div>
             </div>
             <div className="border-x border-brand-green/10">
-              <div className="text-2xl font-bold text-brand-green">Nature</div>
-              <div className="text-xs text-brand-green/60 font-semibold uppercase tracking-wider mt-0.5">Primary Studio</div>
+              <div className="text-2xl font-bold text-brand-green">Unique</div>
+              <div className="text-xs text-brand-green/60 font-semibold uppercase tracking-wider mt-0.5">Method Of Teaching</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-brand-yellow">Kishangarh</div>
-              <div className="text-xs text-brand-green/60 font-semibold uppercase tracking-wider mt-0.5">Rajasthan Heart</div>
+              <div className="text-2xl font-bold text-brand-yellow">Best School</div>
+              <div className="text-xs text-brand-green/60 font-semibold uppercase tracking-wider mt-0.5">In Kishangarh</div>
             </div>
           </div>
         </motion.div>
