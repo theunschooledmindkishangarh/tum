@@ -9,14 +9,10 @@ export default function Footer() {
       {/* Background visual detail */}
       <div className="absolute inset-0 organic-grid pointer-events-none opacity-[0.03]" />
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
         
         {/* Left segment */}
         <div className="flex flex-col gap-4 overflow-visible">
-          <div className="flex items-center -ml-3 -mt-3 select-none origin-top-left overflow-visible">
-            <HangingLogo3D scale={0.85} />
-          </div>
-
           <p className="font-rounded font-medium text-xs text-brand-sand/70 max-w-sm leading-relaxed">
             Nurturing native childhood curiosity, sensory craftsmanship, and sovereign intellectual courage inside Rajasthan's organic terrains.
           </p>
@@ -28,25 +24,10 @@ export default function Footer() {
             Admissions & Info
           </h4>
           <p className="text-xs text-brand-sand/80 leading-relaxed font-semibold">
-            ✦ Near Khoda Ganesh Temple road, Kishangarh, Rajasthan - 305801 <br />
-            ✦ Admissions Phone: +91 82625 03442 <br />
+            ✦ New Housing Board, Khoda Ganesh Ji Road, Kishangarh, Ajmer <br />
+            ✦ Admissions Phone: +91 96106 66370 <br />
             ✦ Contact: theunschooledmindkishangarh@gmail.com
           </p>
-        </div>
-
-        {/* Right segment */}
-        <div className="flex flex-col gap-3 font-rounded text-xs text-brand-sand/60">
-          <h4 className="font-display font-semibold text-sm uppercase tracking-wider text-brand-yellow text-brand-sand">
-            The Movement
-          </h4>
-          <p className="leading-relaxed">
-            Alternative learning is an organic response to global educational challenges. We believe in child-centric respect, hands-on play, risk management, and self-guided masteries.
-          </p>
-
-          <div className="flex items-center gap-2 text-[10px] font-mono text-brand-yellow">
-            <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-            <span>Co-designed in partnership with Rajasthani crafts educators</span>
-          </div>
         </div>
 
       </div>
@@ -54,10 +35,6 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10 text-xs font-mono text-brand-sand/40">
         <p>
           &copy; {currentYear} The Unschooled Mind - Kishangarh. All rights reserved.
-        </p>
-        <p className="flex items-center gap-1.5 font-bold">
-          <Globe className="w-3.5 h-3.5" />
-          <span>Alternative Learning Space, India</span>
         </p>
       </div>
     </footer>

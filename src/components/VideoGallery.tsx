@@ -141,38 +141,13 @@ export default function VideoGallery() {
               </div>
 
               {/* Content Box */}
-              <div className="p-5 flex flex-col justify-between flex-1 gap-4">
-                <div className="flex flex-col gap-2">
-                  <h3 className="font-display font-bold text-lg text-brand-green leading-snug group-hover:text-brand-clay transition-colors">
-                    {currentVid.title}
-                  </h3>
-                  <p className="font-rounded font-medium text-xs text-brand-green/70 leading-relaxed min-h-[40px]">
-                    {currentVid.description}
-                  </p>
-                </div>
-
-                <div className="pt-3 border-t border-brand-green/10 flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 font-mono text-[10px] text-brand-clay font-bold">
-                    <Flame className="w-4 h-4 fill-brand-yellow text-brand-yellow" />
-                    {currentVid.views} Views
-                  </div>
-
-                  {!isPlaying ? (
-                    <button
-                      onClick={() => setActivePlayId(currentVid.id)}
-                      className="text-xs font-rounded font-bold flex items-center gap-1 text-brand-green hover:text-brand-clay cursor-pointer"
-                    >
-                      Start Watching ➔
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => setActivePlayId(null)}
-                      className="text-xs font-mono font-bold text-brand-clay hover:opacity-80 cursor-pointer"
-                    >
-                      Stop Player [x]
-                    </button>
-                  )}
-                </div>
+              <div 
+                onClick={() => setActivePlayId(isPlaying ? null : currentVid.id)}
+                className="p-5 flex flex-col justify-center text-left cursor-pointer"
+              >
+                <h3 className="font-display font-bold text-lg text-brand-green leading-snug group-hover:text-brand-clay transition-colors">
+                  {currentVid.title}
+                </h3>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -238,7 +213,7 @@ export default function VideoGallery() {
           </div>
 
           <a
-            href="https://www.youtube.com/channel/UCI-7lkfwgULHcoW-ExFICmg"
+            href="https://www.youtube.com/@theunschooledmindkishangarh"
             target="_blank"
             rel="noopener noreferrer"
             className="px-5 py-3 rounded-xl bg-brand-clay border-2 border-brand-green font-rounded font-bold text-xs text-white shadow-[3px_3px_0px_0px_var(--color-brand-green)] hover:bg-brand-clay/90 hover:translate-y-[-1px] transition-all"

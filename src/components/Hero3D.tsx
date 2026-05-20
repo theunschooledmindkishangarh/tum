@@ -149,21 +149,7 @@ export default function Hero3D() {
             </a>
           </div>
 
-          {/* Core Values Minimal Widgets */}
-          <div className="grid grid-cols-3 gap-3 pt-6 border-t border-brand-green/10 text-center font-rounded">
-            <div>
-              <div className="text-2xl font-bold text-brand-clay">100%</div>
-              <div className="text-xs text-brand-green/60 font-semibold uppercase tracking-wider mt-0.5">Self-Directed</div>
-            </div>
-            <div className="border-x border-brand-green/10">
-              <div className="text-2xl font-bold text-brand-green">Unique</div>
-              <div className="text-xs text-brand-green/60 font-semibold uppercase tracking-wider mt-0.5">Method Of Teaching</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-brand-yellow">Best School</div>
-              <div className="text-xs text-brand-green/60 font-semibold uppercase tracking-wider mt-0.5">In Kishangarh</div>
-            </div>
-          </div>
+
         </motion.div>
 
         {/* Right Side: Immersive interactive 3D Animated School Girl Image */}

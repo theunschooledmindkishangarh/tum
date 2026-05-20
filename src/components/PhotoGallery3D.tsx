@@ -162,32 +162,13 @@ export default function PhotoGallery3D() {
               </div>
 
               {/* Content Box */}
-              <div className="p-5 flex flex-col justify-between flex-1 gap-4">
-                <div className="flex flex-col gap-2 text-left">
-                  <h3 className="font-display font-bold text-lg text-brand-green leading-snug group-hover:text-brand-clay transition-colors">
-                    {currentImg.title}
-                  </h3>
-                  <p className="font-rounded font-medium text-xs text-brand-green/70 leading-relaxed min-h-[40px]">
-                    {currentImg.desc}
-                  </p>
-                </div>
-
-                <div className="pt-3 border-t border-brand-green/10 flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 font-mono text-[10px] text-brand-clay font-bold">
-                    <Camera className="w-4 h-4 text-brand-clay" />
-                    Kishangarh Live
-                  </div>
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setLightboxImage(currentImg);
-                    }}
-                    className="text-xs font-rounded font-bold flex items-center gap-1 text-brand-green hover:text-brand-clay cursor-pointer"
-                  >
-                    View Photo ➔
-                  </button>
-                </div>
+              <div 
+                onClick={() => setLightboxImage(currentImg)}
+                className="p-5 flex flex-col justify-center text-left cursor-pointer"
+              >
+                <h3 className="font-display font-bold text-lg text-brand-green leading-snug group-hover:text-brand-clay transition-colors">
+                  {currentImg.title}
+                </h3>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -250,7 +231,7 @@ export default function PhotoGallery3D() {
           </div>
 
           <a
-            href="https://www.instagram.com/the.unschooledmind/"
+            href="https://www.instagram.com/the_unschooled_mind_kishangarh/"
             target="_blank"
             rel="noopener noreferrer"
             className="px-5 py-3 rounded-xl bg-brand-clay border-2 border-brand-green font-rounded font-bold text-xs text-white shadow-[3px_3px_0px_0px_var(--color-brand-green)] hover:bg-brand-clay/90 hover:translate-y-[-1px] transition-all cursor-pointer whitespace-nowrap"

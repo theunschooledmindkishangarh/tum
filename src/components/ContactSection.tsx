@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Mail, Phone, MapPin, Instagram, Facebook, Youtube, Send, Sparkles, Navigation, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Facebook, Youtube, Send, Sparkles, Navigation, CheckCircle2, MessageCircle } from "lucide-react";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -29,22 +29,29 @@ export default function ContactSection() {
       name: "Instagram",
       icon: <Instagram className="w-5 h-5" />,
       color: "hover:bg-[#E1306C] hover:text-white hover:border-[#E1306C]",
-      url: "https://www.instagram.com/the.unschooledmind/",
-      handle: "@the.unschooledmind"
+      url: "https://www.instagram.com/the_unschooled_mind_kishangarh/",
+      handle: "@the_unschooled_mind_kishangarh"
     },
     {
       name: "Facebook",
       icon: <Facebook className="w-5 h-5" />,
       color: "hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2]",
-      url: "https://www.facebook.com/people/The-Unschooled-Mind-Kishangarh/",
+      url: "https://www.facebook.com/profile.php?id=61572737006326",
       handle: "The Unschooled Mind"
     },
     {
       name: "Youtube",
       icon: <Youtube className="w-5 h-5" />,
       color: "hover:bg-[#FF0000] hover:text-white hover:border-[#FF0000]",
-      url: "https://www.youtube.com/channel/UCI-7lkfwgULHcoW-ExFICmg",
+      url: "https://www.youtube.com/@theunschooledmindkishangarh",
       handle: "The Unschooled Mind"
+    },
+    {
+      name: "WhatsApp",
+      icon: <MessageCircle className="w-5 h-5" />,
+      color: "hover:bg-[#25D366] hover:text-white hover:border-[#25D366]",
+      url: "https://wa.me/919610666370",
+      handle: "+91 96106 66370"
     }
   ];
 
@@ -63,13 +70,13 @@ export default function ContactSection() {
             Contact For <span className="italic font-normal text-brand-clay">Admission</span>
           </h2>
           <p className="font-rounded font-medium text-brand-green/70 text-sm mt-3">
-            Bring your child down to our Kishangarh center to play with clay, touch the carpentry logs, and feel the natural learning model themselves. Let's grow together.
+            Admissions are officially open! Fill out the inquiry form below or give us a call to begin the admissions process. Let's grow together.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="max-w-3xl mx-auto flex flex-col gap-8">
           
-          {/* Left Column: Form & Info */}
+          {/* Main Column: Form & Info */}
           <div className="flex flex-col gap-8">
             
             {/* Contact numbers and social handles */}
@@ -78,38 +85,38 @@ export default function ContactSection() {
                 Coordinates
               </h3>
 
-              <div className="flex flex-col gap-4 font-rounded font-bold text-sm text-brand-green/90">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-rounded font-bold text-sm text-brand-green/90">
                 <a
-                  href="tel:+918262503442"
+                  href="tel:+919610666370"
                   className="flex items-center gap-3.5 p-3 rounded-xl border border-transparent hover:border-brand-green/10 hover:bg-brand-sand transition-all group"
                   id="phone-link"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-brand-clay text-white flex items-center justify-center border border-brand-green">
+                  <div className="w-10 h-10 rounded-lg bg-brand-clay text-white flex items-center justify-center border border-brand-green shrink-0">
                     <Phone className="w-5 h-5 animate-bounce-slow" />
                   </div>
                   <div>
                     <span className="text-xs text-brand-green/50 font-mono block">Mobile Hotlines</span>
-                    <span className="text-sm md:text-base group-hover:text-brand-clay transition-colors">+91 82625 03442</span>
+                    <span className="text-xs md:text-sm group-hover:text-brand-clay transition-colors">+91 96106 66370</span>
                   </div>
                 </a>
 
                 <div className="flex items-center gap-3.5 p-3 rounded-xl">
-                  <div className="w-10 h-10 rounded-lg bg-brand-green text-white flex items-center justify-center border border-brand-green">
+                  <div className="w-10 h-10 rounded-lg bg-brand-green text-white flex items-center justify-center border border-brand-green shrink-0">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
                     <span className="text-xs text-brand-green/50 font-mono block">Primary Location</span>
-                    <span className="text-xs md:text-sm">Kishangarh, Ajmer District, Rajasthan - 305801</span>
+                    <span className="text-xs md:text-sm">New Housing Board, Khoda Ganesh Ji Rd</span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3.5 p-3 rounded-xl">
-                  <div className="w-10 h-10 rounded-lg bg-brand-yellow text-brand-green flex items-center justify-center border border-brand-green">
+                  <div className="w-10 h-10 rounded-lg bg-brand-yellow text-brand-green flex items-center justify-center border border-brand-green shrink-0">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
                     <span className="text-xs text-brand-green/50 font-mono block">Admissions Email</span>
-                    <span className="text-xs md:text-sm lowercase">theunschooledmindkishangarh@gmail.com</span>
+                    <span className="text-xs md:text-sm lowercase break-all">theunschooledmindkishangarh@gmail.com</span>
                   </div>
                 </div>
               </div>
@@ -143,7 +150,7 @@ export default function ContactSection() {
               </h3>
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-4 font-rounded font-semibold text-xs text-brand-green">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
                     <label htmlFor="pname">Your Name *</label>
                     <input
@@ -211,51 +218,6 @@ export default function ContactSection() {
               </form>
             </div>
 
-          </div>
-
-          {/* Right Column: Google Maps Location Widget */}
-          <div className="flex flex-col h-full min-h-[460px]">
-            <div className="bg-[#EEF2FF] border-3 border-brand-green p-3 rounded-2xl shadow-[6px_6px_0px_0px_var(--color-brand-green)] flex flex-col justify-between flex-1">
-              
-              {/* Map Title Tag */}
-              <div className="flex items-center justify-between px-3 py-2">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-brand-clay animate-pulse" />
-                  <span className="font-rounded font-bold text-xs text-brand-green uppercase tracking-wide">Kishangarh Center Satellite</span>
-                </div>
-                <a
-                  href="https://maps.google.com/?q=Kishangarh,Rajasthan"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-[9px] uppercase tracking-wide font-bold text-brand-clay underline flex items-center gap-1 hover:opacity-80"
-                >
-                  Open Maps App <Navigation className="w-2.5 h-2.5" />
-                </a>
-              </div>
-
-              {/* The Iframe Map Embed */}
-              <div className="w-full h-[360px] lg:h-[460px] rounded-xl border-2 border-brand-green overflow-hidden relative shadow-inner bg-stone-100 my-2">
-                <iframe
-                  title="The Unschooled Mind Kishangarh Map Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14272.5414856037!2d74.8580!3d26.5700!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396be11d61bd26a1%3A0xe13a7c6a0c0a5b28!2sKishangarh%2C%20Rajasthan%20305801!5e0!3m2!1sen!2sin!4v1716178382000!5m2!1sen!2sin"
-                  className="absolute inset-0 w-full h-full border-0"
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-
-              {/* Navigation help */}
-              <div className="px-3 py-2.5 bg-white border border-brand-green/20 rounded-lg flex items-start gap-2.5">
-                <div className="p-1 rounded bg-brand-green/10 text-brand-green">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <p className="font-rounded font-medium text-[11px] leading-relaxed text-brand-green/70">
-                  Our alternative learning community is located inside the scenic, quiet fringes of Kishangarh, Rajasthan. Quiet mountain breeze, safe pathways, and clay pits represent the natural playground environment. 
-                </p>
-              </div>
-
-            </div>
           </div>
 
         </div>
