@@ -1,4 +1,5 @@
-import { Compass, Sparkles, Navigation, Globe } from "lucide-react";
+import { Sparkles, Navigation, Globe } from "lucide-react";
+import HangingLogo3D from "./HangingLogo3D";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -12,18 +13,8 @@ export default function Footer() {
         
         {/* Left segment */}
         <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-brand-clay border border-white/20 flex items-center justify-center text-white">
-              <Compass className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="font-rounded font-bold text-base leading-tight block">
-                The Unschooled Mind
-              </span>
-              <span className="font-mono text-[10px] tracking-wider text-brand-yellow font-bold uppercase">
-                Kishangarh, Rajasthan
-              </span>
-            </div>
+          <div className="flex items-center -ml-3 -mt-3.5 select-none origin-top-left">
+            <HangingLogo3D scale={0.85} />
           </div>
 
           <p className="font-rounded font-medium text-xs text-brand-sand/70 max-w-sm leading-relaxed">

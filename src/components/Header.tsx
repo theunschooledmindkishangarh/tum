@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Phone, Compass } from "lucide-react";
+import { Phone } from "lucide-react";
+import HangingLogo3D from "./HangingLogo3D";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -32,19 +33,10 @@ export default function Header() {
           <a
             href="#home"
             onClick={handleScrollToTop}
-            className="flex items-center gap-2 group cursor-pointer"
+            className="relative flex items-center h-16 cursor-pointer select-none"
+            aria-label="The Unschooled Mind Home"
           >
-            <div className="w-10 h-10 rounded-xl bg-brand-clay flex items-center justify-center border-2 border-brand-green shadow-[2px_2px_0px_0px_var(--color-brand-green)] group-hover:rotate-6 transition-transform">
-              <Compass className="w-6 h-6 text-brand-sand" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-rounded font-bold text-base md:text-lg leading-tight text-brand-green group-hover:text-brand-clay transition-colors">
-                The Unschooled Mind
-              </span>
-              <span className="font-mono text-[10px] uppercase tracking-wider text-brand-yellow font-bold leading-none">
-                Kishangarh, Rajasthan
-              </span>
-            </div>
+            <HangingLogo3D scale={0.58} className="-mt-[18px] origin-top" />
           </a>
 
           {/* CTA & Call Button */}

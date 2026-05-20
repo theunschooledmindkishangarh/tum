@@ -177,44 +177,18 @@ export default function Hero3D() {
             <div className="absolute inset-4 rounded-2xl border-2 border-dashed border-white/10 pointer-events-none" />
 
             {/* Simulated 3D Sandbox depth layer */}
-            <div className="absolute inset-1 border border-white/20 rounded-2xl pointer-events-none" />
-
-            {/* Embedded custom style sheet for high-fidelity interactive vector animations */}
+            <div className="absolute inset-1 border border-white/20 rounded-2xl pointer-events-none" />            {/* Embedded custom style sheet for high-fidelity interactive vector animations */}
             <style>{`
               .preserve-3d {
                 transform-style: preserve-3d;
               }
-              @keyframes kid-sway-left {
-                0%, 100% { transform: translateY(0px) translateX(0px) rotate(-1deg); }
-                50% { transform: translateY(-4px) translateX(-2px) rotate(1.5deg); }
-              }
-              @keyframes kid-sway-right {
-                0%, 100% { transform: translateY(0px) translateX(0px) rotate(2deg); }
-                50% { transform: translateY(-4.5px) translateX(2.5px) rotate(-1deg); }
-              }
-              @keyframes head-bob-left {
-                0%, 100% { transform: rotate(-1deg) translateY(0px) translateX(0px); }
-                50% { transform: rotate(2.5deg) translateY(-2px) translateX(1px); }
-              }
-              @keyframes head-bob-right {
-                0%, 100% { transform: rotate(1.5deg) translateY(0px) translateX(0px); }
-                50% { transform: rotate(-2deg) translateY(-2px) translateX(-1px); }
-              }
-              @keyframes blink-natural-left {
-                0%, 88%, 94%, 100% { transform: scaleY(1); }
-                91% { transform: scaleY(0.12); }
-              }
-              @keyframes blink-natural-right {
-                0%, 85%, 91%, 100% { transform: scaleY(1); }
-                88% { transform: scaleY(0.12); }
-              }
-              @keyframes ribbon-left {
-                0%, 100% { transform: rotate(-3deg) translateY(0) scaleY(1); }
-                50% { transform: rotate(-1deg) translateY(-1px) scaleY(1.05); }
-              }
-              @keyframes ribbon-right {
-                0%, 100% { transform: rotate(2deg) translateY(0) scaleY(1); }
-                50% { transform: rotate(4deg) translateY(-1px) scaleY(1.05); }
+              @keyframes real-student-sway-breath {
+                0%, 100% {
+                  transform: translateY(0px) rotate(0.5deg) scale(1) translateZ(20px);
+                }
+                50% {
+                  transform: translateY(-4px) rotate(-1deg) scale(1.02) translateZ(25px);
+                }
               }
               @keyframes pottery-spin-flat {
                 from { transform: rotate(0deg); }
@@ -252,163 +226,32 @@ export default function Hero3D() {
               }
             `}</style>
 
-            {/* LAYER 1: 3D Animated Kids backdrop (Two Collaborative Students!) */}
+            {/* LAYER 1: 3D Real Student Portrait Window (Single Real Student!) */}
             <motion.div
               style={{ x: layer1X, y: layer1Y, z: 20 }}
-              className="absolute inset-0 flex items-end justify-center pb-12 gap-5 pointer-events-none preserve-3d"
+              className="absolute inset-0 flex items-center justify-center pb-20 pointer-events-none preserve-3d"
             >
-              {/* STUDENT 1: Kid on the Left */}
+              {/* Beautiful, warm-toned Arched Portrait Frame with physical breathing animations */}
               <div 
-                className="relative w-34 h-56 flex flex-col items-center justify-end pb-3 preserve-3d"
-                style={{ animation: "kid-sway-left 5s ease-in-out infinite" }}
+                className="relative w-52 h-64 rounded-t-full border-4 border-brand-green bg-[#0d1b3e] overflow-hidden z-20 preserve-3d"
+                style={{ 
+                  animation: "real-student-sway-breath 6s ease-in-out infinite",
+                  boxShadow: "0 20px 40px rgba(0,0,0,0.5), inset 0 0 40px rgba(0,0,0,0.6)"
+                }}
               >
-                {/* Curly hair background volume */}
-                <div className="absolute top-5 w-26 h-26 bg-[#160f09] rounded-full filter blur-[0.5px]" />
-
-                {/* Head */}
-                <div 
-                  className="relative w-22 h-22 bg-[#f6cb9d] rounded-[30px] shadow-lg flex flex-col items-center justify-center border-2 border-brand-green/80 z-10 preserve-3d"
-                  style={{ animation: "head-bob-left 5s ease-in-out infinite", animationDelay: "0.2s" }}
-                >
-                  {/* Wavy Hair curly top layers */}
-                  <div className="absolute -top-2 w-24 h-8 bg-[#160f09] rounded-full" />
-                  <div className="absolute -top-3 left-1.5 w-10 h-10 bg-[#160f09] rounded-full" />
-                  <div className="absolute -top-2 right-3.5 w-11 h-11 bg-[#160f09] rounded-full" />
-                  
-                  {/* Soft Ears */}
-                  <div className="absolute -left-1.5 top-7 w-2.5 h-4 bg-[#eba471] rounded-l-full border-l-2 border-y-2 border-brand-green/50" />
-                  <div className="absolute -right-1.5 top-7 w-2.5 h-4 bg-[#eba471] rounded-r-full border-r-2 border-y-2 border-brand-green/50" />
-                  
-                  {/* Face */}
-                  <div className="relative w-full h-full flex flex-col justify-between p-3 pt-5 preserve-3d">
-                    {/* Eyes with blinks */}
-                    <div className="flex justify-between px-1.5 mt-0.5">
-                      {/* Left Eye */}
-                      <div 
-                        className="relative w-2.5 h-2.5 bg-[#061543] rounded-full flex items-center justify-center origin-center"
-                        style={{ animation: "blink-natural-left 4.5s infinite" }}
-                      >
-                        <div className="absolute top-0.5 right-0.5 w-0.5 h-0.5 bg-white rounded-full" />
-                      </div>
-                      {/* Right Eye */}
-                      <div 
-                        className="relative w-2.5 h-2.5 bg-[#061543] rounded-full flex items-center justify-center origin-center"
-                        style={{ animation: "blink-natural-left 4.5s infinite" }}
-                      >
-                        <div className="absolute top-0.5 right-0.5 w-0.5 h-0.5 bg-white rounded-full" />
-                      </div>
-                    </div>
-
-                    {/* Cute clay smudge on the cheek */}
-                    <div className="absolute top-[48%] right-2 w-3 h-1.5 bg-[#b95039]/65 rounded-full rotate-[12deg]" />
-
-                    {/* Cute Nose */}
-                    <div className="absolute top-[42%] left-1/2 -translate-x-1/2 w-2.5 h-1.5 bg-[#e09867] rounded-full" />
-                    
-                    {/* Blushing Cheeks */}
-                    <div className="absolute top-[46%] left-2 w-3 h-2.5 rounded-full bg-rose-400/30 filter blur-[0.5px]" />
-                    <div className="absolute top-[46%] right-2 w-3 h-2.5 rounded-full bg-rose-400/30 filter blur-[0.5px]" />
-
-                    {/* Satisfied Joyful Smile */}
-                    <div className="w-8 h-3 border-b-3 border-[#160f09] rounded-b-full mx-auto mb-1.5" />
-                  </div>
-                </div>
-
-                {/* Hand-knotted red craft bandana */}
-                <div 
-                  className="absolute top-10 w-24 h-2.5 bg-[#c86446] rounded-full border border-brand-green z-20 shadow-md transform"
-                  style={{ animation: "ribbon-left 4.2s ease-in-out infinite" }}
+                {/* Embedded High-Fidelity Real Student Image */}
+                <img 
+                  src="/src/assets/images/pottery_learning_1779250424029.png" 
+                  alt="Real Unschooled Student Pottery Learning"
+                  className="w-full h-full object-cover rounded-t-full"
+                  referrerPolicy="no-referrer"
                 />
 
-                {/* Torso & local cotton yellow kurta */}
-                <div className="relative w-18 h-20 bg-[#e5b32f] rounded-[20px] border-2 border-brand-green shadow-md flex justify-center pt-1.5 -mt-3 z-0">
-                  {/* Neck */}
-                  <div className="absolute -top-2.5 w-4.5 h-3.5 bg-[#eba471] border-2 border-brand-green rounded-b-md" />
-                  {/* Mud splatters on Kurtas */}
-                  <div className="absolute top-4 left-2 w-1.5 h-1.5 bg-[#c86446]/50 rounded-full" />
-                  <div className="absolute top-8 right-3.5 w-2 h-1 bg-[#c86446]/60 rounded-full rotate-45" />
-                  {/* Small white Rajasthan design shell button */}
-                  <div className="w-1.5 h-1.5 rounded-full bg-white opacity-95 mt-1 shadow" />
-                </div>
-              </div>
-
-              {/* STUDENT 2: Kid on the Right */}
-              <div 
-                className="relative w-34 h-56 flex flex-col items-center justify-end pb-3 preserve-3d"
-                style={{ animation: "kid-sway-right 5.5s ease-in-out infinite", animationDelay: "0.4s" }}
-              >
-                {/* Fluffy hair bun volume backend */}
-                <div className="absolute top-5 w-26 h-26 bg-[#52331c] rounded-full filter blur-[0.5px]" />
-                <div className="absolute top-1 left-5 w-9 h-9 bg-[#52331c] rounded-full border border-brand-green/30" />
-                <div className="absolute top-1 right-5 w-9 h-9 bg-[#52331c] rounded-full border border-brand-green/30" />
-
-                {/* Head */}
-                <div 
-                  className="relative w-22 h-22 bg-[#fbd4b1] rounded-[30px] shadow-lg flex flex-col items-center justify-center border-2 border-brand-green/80 z-10 preserve-3d"
-                  style={{ animation: "head-bob-right 5.5s ease-in-out infinite", animationDelay: "0.6s" }}
-                >
-                  {/* Hair top elements */}
-                  <div className="absolute -top-2 w-24 h-7 bg-[#52331c] rounded-full" />
-                  <div className="absolute -top-1.5 left-1.5 w-9 h-9 bg-[#52331c] rounded-full" />
-                  <div className="absolute -top-1.5 right-1.5 w-9 h-9 bg-[#52331c] rounded-full" />
-                  
-                  {/* Soft Ears */}
-                  <div className="absolute -left-1.5 top-7 w-2.5 h-4 bg-[#eba471] rounded-l-full border-l-2 border-y-2 border-brand-green/50" />
-                  <div className="absolute -right-1.5 top-7 w-2.5 h-4 bg-[#eba471] rounded-r-full border-r-2 border-y-2 border-brand-green/50" />
-                  
-                  {/* Face */}
-                  <div className="relative w-full h-full flex flex-col justify-between p-3 pt-5 preserve-3d">
-                    {/* Eyes with blinks */}
-                    <div className="flex justify-between px-1.5 mt-0.5">
-                      {/* Left Eye */}
-                      <div 
-                        className="relative w-2.5 h-2.5 bg-[#061543] rounded-full flex items-center justify-center origin-center"
-                        style={{ animation: "blink-natural-right 4.1s infinite" }}
-                      >
-                        <div className="absolute top-0.5 left-0.5 w-0.5 h-0.5 bg-white rounded-full" />
-                      </div>
-                      {/* Right Eye */}
-                      <div 
-                        className="relative w-2.5 h-2.5 bg-[#061543] rounded-full flex items-center justify-center origin-center"
-                        style={{ animation: "blink-natural-right 4.1s infinite" }}
-                      >
-                        <div className="absolute top-0.5 left-0.5 w-0.5 h-0.5 bg-white rounded-full" />
-                      </div>
-                    </div>
-
-                    {/* Cute clay streak on the cheek */}
-                    <div className="absolute top-[48%] left-2.5 w-3 h-1.5 bg-[#c86446]/65 rounded-full rotate-[-15deg]" />
-
-                    {/* Cute Nose */}
-                    <div className="absolute top-[42%] left-1/2 -translate-x-1/2 w-2.5 h-1.5 bg-[#e09867] rounded-full" />
-                    
-                    {/* Blushing Cheeks */}
-                    <div className="absolute top-[46%] left-2 w-3 h-2.5 rounded-full bg-rose-400/25 filter blur-[0.5px]" />
-                    <div className="absolute top-[46%] right-2 w-3 h-2.5 rounded-full bg-rose-400/25 filter blur-[0.5px]" />
-
-                    {/* Playful Open Smile */}
-                    <div className="w-8 h-3.5 bg-[#4c1511] rounded-b-full mx-auto mb-1 flex items-end justify-center overflow-hidden border border-brand-green/45">
-                      <div className="w-5 h-2 bg-rose-300 rounded-full" />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Hand-knotted orange craft ribbon */}
-                <div 
-                  className="absolute top-10 w-24 h-2.5 bg-[#db7e35] rounded-full border border-brand-green z-20 shadow-md transform"
-                  style={{ animation: "ribbon-right 4.8s ease-in-out infinite" }}
-                />
-
-                {/* Torso & local cotton terracotta/green kurta */}
-                <div className="relative w-18 h-20 bg-[#aed9b0] rounded-[20px] border-2 border-brand-green shadow-md flex justify-center pt-1.5 -mt-3 z-0">
-                  {/* Neck */}
-                  <div className="absolute -top-2.5 w-4.5 h-3.5 bg-[#eba471] border-2 border-brand-green rounded-b-md" />
-                  {/* Mud splatters on Kurtas */}
-                  <div className="absolute top-5 right-2 w-2 h-1.5 bg-[#ebc360]/50 rounded-full" />
-                  <div className="absolute top-7 left-3.5 w-1.5 h-2 bg-[#be583e]/60 rounded-full rotate-[-45deg]" />
-                  {/* Small gold shell button */}
-                  <div className="w-1 h-1 rounded-full bg-brand-yellow mt-1 shadow" />
-                </div>
+                {/* Ambient vignette gradient inside the image window to give it 3D depth and blending */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#061543]/60 via-transparent to-black/30 pointer-events-none mix-blend-multiply" />
+                
+                {/* Real-time organic light beam reflecting over the frame */}
+                <div className="absolute -inset-x-12 top-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent -skew-y-12 pointer-events-none" />
               </div>
             </motion.div>
 
