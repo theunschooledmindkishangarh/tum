@@ -43,7 +43,7 @@ const INITIAL_BLOG_POSTS: BlogPost[] = [
     readTime: "4 min read",
     date: "May 10, 2026",
     author: "Pottery Elder Ram",
-    image: "/src/assets/images/pottery_learning_1779250424029.png",
+    image: "/src/assets/images/student_girl_1779270352412.png",
     content: "If you tell a child to 'be calm' or 'focus,' you are giving them an abstract instruction. If you place a wet, spinning lump of river clay on a manual speed flywheel, you don't need any instructions. In pottery, the clay acts as a biological mirror. If your hand is tense or hurried, the clay shears and collapses. If your posture is steady and slow, the clay rises into an elegant water cup. This is mindful presence taught purely by gravity and friction. Our daily sessions on the clay wheel teach young learners how to control their motor nervous system, regulate deep breathing, and view mistake-events (when the pot collapses) as simple, harmless physical adjustments rather than a grade-card failure. It's a wonderful, messy science of patience."
   },
   {

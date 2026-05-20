@@ -22,21 +22,21 @@ export default function Header() {
     <header className="fixed top-0 left-0 w-full z-50 px-4 py-3 md:px-8">
       <nav
         id="navbar"
-        className={`max-w-7xl mx-auto rounded-2xl transition-all duration-300 border ${
+        className={`max-w-7xl mx-auto rounded-2xl transition-all duration-300 border overflow-visible ${
           isScrolled
             ? "bg-white/80 backdrop-blur-md shadow-lg border-brand-green/20 py-2.5 px-4 md:px-6"
             : "bg-transparent border-transparent py-4 px-2"
         }`}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between overflow-visible">
           {/* Logo Brand */}
           <a
             href="#home"
             onClick={handleScrollToTop}
-            className="relative flex items-center h-16 cursor-pointer select-none"
+            className="relative flex items-center h-16 overflow-visible cursor-pointer select-none md:scale-105"
             aria-label="The Unschooled Mind Home"
           >
-            <HangingLogo3D scale={0.58} className="-mt-[18px] origin-top" />
+            <HangingLogo3D scale={0.7} className="-mt-[14px] origin-top-left" />
           </a>
 
           {/* CTA & Call Button */}

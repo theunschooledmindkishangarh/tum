@@ -9,9 +9,9 @@ export default function PhotoGallery3D() {
 
   const images = [
     {
-      url: "/src/assets/images/pottery_learning_1779250424029.png",
-      title: "Tactile Clay & Pottery",
-      desc: "Creating pots out of regional red Kishangarh soil. Teaching children sensory focus and design.",
+      url: "/src/assets/images/student_girl_1779270352412.png",
+      title: "Self-Guided Active Learner",
+      desc: "Joy of self-directed primary study, balancing practical doing with boundless natural curiosity.",
       category: "Activity"
     },
     {

@@ -80,59 +80,67 @@ export default function HangingLogo3D({ scale = 1, className = "" }: HangingLogo
 
   return (
     <div
-      ref={containerRef}
-      className={`relative select-none perspective-1000 flex flex-col items-center justify-start ${className}`}
+      className={`relative select-none ${className}`}
       style={{
         width: `${190 * scale}px`,
         height: `${135 * scale}px`,
-        transformOrigin: "top center",
       }}
     >
-      {/* 3D Ropes / Strings going down to eyelets */}
-      <svg
-        className="absolute top-0 left-1/2 -translate-x-1/2 z-10 overflow-visible pointer-events-none"
-        width={`${140 * scale}px`}
-        height={`${40 * scale}px`}
-        viewBox="0 0 140 40"
-        fill="none"
-      >
-        {/* Shadow or faint outline of ropes */}
-        <path
-          d="M 70 0 L 25 36 M 70 0 L 115 36"
-          stroke="rgba(15, 46, 147, 0.15)"
-          strokeWidth="3"
-          strokeLinecap="round"
-        />
-        {/* Real organic-textured hanging cotton strings */}
-        <path
-          d="M 70 2 C 55 12, 40 24, 25 36 M 70 2 C 85 12, 100 24, 115 36"
-          stroke="#d2b48c"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          className="stroke-brand-green/70"
-        />
-        {/* Small loop node at the top hanging screw */}
-        <circle cx="70" cy="2" r="3.5" fill="#a08050" className="fill-brand-clay" />
-        <circle cx="70" cy="2" r="1.5" fill="#fcf8f2" />
-      </svg>
-
-      {/* Embedded High Fidelity 3D Signboard */}
-      <motion.div
-        className="absolute bottom-0 w-full bg-white rounded-xl border border-brand-green/25 flex flex-col shadow-lg overflow-hidden cursor-pointer preserve-3d"
+      <div
+        ref={containerRef}
+        className="absolute top-0 left-1/2 -translate-x-1/2 perspective-1000 flex flex-col items-center justify-start"
         style={{
-          height: `${100 * scale}px`,
-          rotateX,
-          rotateY,
-          z: translateZ,
-          boxShadow: "0 10px 25px -5px rgba(15, 46, 147, 0.18), 0 8px 10px -6px rgba(15, 46, 147, 0.1)",
-          animation: "signboard-organic-sway 4.5s ease-in-out infinite",
-          transformOrigin: "50% -30px", // Animates hanging physics perfectly
+          width: "190px",
+          height: "135px",
+          transform: `scale(${scale})`,
+          transformOrigin: "top center",
         }}
-        onMouseMove={handleMouseMove3D}
-        onMouseLeave={handleMouseLeave3D}
-        whileHover={{ scale: 1.03 }}
-        whileTap={{ scale: 0.98 }}
       >
+        {/* 3D Ropes / Strings going down to eyelets */}
+        <svg
+          className="absolute top-0 left-1/2 -translate-x-1/2 z-10 overflow-visible pointer-events-none"
+          width="140px"
+          height="40px"
+          viewBox="0 0 140 40"
+          fill="none"
+        >
+          {/* Shadow or faint outline of ropes */}
+          <path
+            d="M 70 0 L 25 36 M 70 0 L 115 36"
+            stroke="rgba(15, 46, 147, 0.15)"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+          {/* Real organic-textured hanging cotton strings */}
+          <path
+            d="M 70 2 C 55 12, 40 24, 25 36 M 70 2 C 85 12, 100 24, 115 36"
+            stroke="#d2b48c"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            className="stroke-brand-green/70"
+          />
+          {/* Small loop node at the top hanging screw */}
+          <circle cx="70" cy="2" r="3.5" fill="#a08050" className="fill-brand-clay" />
+          <circle cx="70" cy="2" r="1.5" fill="#fcf8f2" />
+        </svg>
+
+        {/* Embedded High Fidelity 3D Signboard */}
+        <motion.div
+          className="absolute bottom-0 w-full bg-white rounded-xl border border-brand-green/25 flex flex-col shadow-lg overflow-hidden cursor-pointer preserve-3d"
+          style={{
+            height: "100px",
+            rotateX,
+            rotateY,
+            z: translateZ,
+            boxShadow: "0 10px 25px -5px rgba(15, 46, 147, 0.18), 0 8px 10px -6px rgba(15, 46, 147, 0.1)",
+            animation: "signboard-organic-sway 4.5s ease-in-out infinite",
+            transformOrigin: "50% -30px", // Animates hanging physics perfectly
+          }}
+          onMouseMove={handleMouseMove3D}
+          onMouseLeave={handleMouseLeave3D}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.98 }}
+        >
         {/* Sign Holder Inner Panel with border detail */}
         <div className="absolute inset-1 rounded-[10px] border border-dashed border-brand-green/15 pointer-events-none" />
 
@@ -147,16 +155,11 @@ export default function HangingLogo3D({ scale = 1, className = "" }: HangingLogo
         {/* Brand Text Content Area */}
         <div className="flex-1 flex flex-col justify-start items-center pt-5 px-3 relative">
           
-          {/* Trademark Logo marker (TM) */}
-          <span className="absolute top-[18px] right-[24px] font-sans text-[5.5px] font-bold text-brand-green/70 select-none">
-            TM
-          </span>
-
           {/* Logo Title text line 1 */}
           <div className="flex items-end justify-center gap-[0.5px] select-none scale-[0.88] origin-top">
             <div className="flex flex-col items-center">
-              {/* "The" positioned neatly فوق */}
-              <span className="font-rounded font-extrabold text-[7px] text-[#0F2E93] leading-none mb-[2px] self-start ml-[2px]">
+              {/* "The" positioned neatly above */}
+              <span className="font-rounded font-extrabold text-[10px] text-[#0F2E93] leading-none mb-[3px] self-start ml-[1px]">
                 The
               </span>
               <span className="font-rounded font-extrabold text-[15px] text-[#0F2E93] leading-none tracking-tight">
@@ -165,7 +168,7 @@ export default function HangingLogo3D({ scale = 1, className = "" }: HangingLogo
             </div>
             
             <span className="font-rounded font-extrabold text-[15px] text-[#0F2E93] leading-none tracking-tight">
-              scho
+              sch
             </span>
 
             {/* TWO CUTE CHARACTER EYE-OO's */}
@@ -228,12 +231,12 @@ export default function HangingLogo3D({ scale = 1, className = "" }: HangingLogo
 
             {/* "led" with custom color accents */}
             <div className="flex items-baseline gap-[1px] leading-none select-none ml-[2.5px]">
-              {/* L in yellow */}
-              <span className="font-rounded font-black text-[15px] text-[#FBCE3F] transform skew-x-3">
+              {/* L in same blue */}
+              <span className="font-rounded font-black text-[15px] text-[#0F2E93] transform skew-x-3">
                 l
               </span>
-              {/* E in brand clay (crimson/red) */}
-              <span className="font-rounded font-black text-[13px] text-[#FF3B5D]">
+              {/* E in same blue */}
+              <span className="font-rounded font-black text-[13px] text-[#0F2E93]">
                 e
               </span>
               {/* D with a dynamic customized target circle inside */}
@@ -241,26 +244,16 @@ export default function HangingLogo3D({ scale = 1, className = "" }: HangingLogo
                 <span className="font-rounded font-extrabold text-[15px] text-[#0F2E93]">
                   d
                 </span>
-                <div className="absolute top-[6.5px] left-[1.5px] w-[3px] h-[3px] bg-[#FF3B5D] rounded-full animate-ping opacity-75" />
-                <div className="absolute top-[6.5px] left-[1.5px] w-[3.2px] h-[3.2px] bg-[#FF3B5D] rounded-full" />
+                <div className="absolute top-[6.5px] left-[1.5px] w-[3px] h-[3px] bg-[#0F2E93] rounded-full animate-ping opacity-75" />
+                <div className="absolute top-[6.5px] left-[1.5px] w-[3.2px] h-[3.2px] bg-[#0F2E93] rounded-full" />
               </div>
             </div>
           </div>
 
-          {/* Logo Title text line 2: "Mind" with compass needle over 'i' */}
+          {/* Logo Title text line 2: "Mind" */}
           <div className="flex items-center justify-center relative select-none mt-[4px] scale-[0.9] origin-top">
-            <span className="font-rounded font-extrabold text-[16px] text-[#0F2E93] tracking-tight flex items-baseline">
-              M
-              {/* Special Custom "i" with the Compass needle */}
-              <span className="relative inline-block mx-[1.5px] select-none">
-                <span className="opacity-0">i</span> {/* spacer */}
-                <span className="absolute inset-x-0 bottom-0 text-[16px] text-transparent leading-none">i</span>
-                {/* Pointer Arrow */}
-                <div className="absolute -top-[5px] left-1/2 -translate-x-[45%] w-1.5 h-1.5 rotate-45 border-l-[1.5px] border-t-[1.5px] border-[#FF3B5D] origin-center animate-bounce duration-1000" />
-                {/* Stem of i */}
-                <div className="absolute bottom-[1.5px] left-1/2 -translate-x-1/2 w-1.5 h-2 bg-[#0F2E93] rounded-[1px] shadow-sm" />
-              </span>
-              nd
+            <span className="font-rounded font-extrabold text-[16px] text-[#0F2E93] tracking-tight">
+              Mind
             </span>
 
             {/* Double underline decoration */}
@@ -278,6 +271,7 @@ export default function HangingLogo3D({ scale = 1, className = "" }: HangingLogo
           </span>
         </div>
       </motion.div>
+      </div>
 
       {/* Embedded local keyframes styles for the perfect swinging physics */}
       <style>{`

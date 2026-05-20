@@ -165,217 +165,62 @@ export default function Hero3D() {
           </div>
         </motion.div>
 
-        {/* Right Side: Immersive interactive 3D Tilting Playground */}
-        <div className="flex items-center justify-center w-full min-h-[400px] md:min-h-[500px]">
+        {/* Right Side: Immersive interactive 3D Animated School Girl Image */}
+        <div className="flex items-center justify-center w-full min-h-[450px] md:min-h-[580px]">
           <motion.div
             style={{ rotateX, rotateY }}
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
-            className="relative w-full max-w-[450px] aspect-square bg-[#061543] rounded-3xl border-4 border-brand-green shadow-[12px_12px_0px_0px_var(--color-brand-green)] flex items-center justify-center p-6 preserve-3d"
+            className="relative w-72 sm:w-85 md:w-[380px] lg:w-[420px] max-w-full aspect-[3/4] cursor-pointer preserve-3d flex items-center justify-center"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            {/* Base platform texture or grid line */}
-            <div className="absolute inset-4 rounded-2xl border-2 border-dashed border-white/10 pointer-events-none" />
+            {/* Subtle base shadow under the floating image in 3D-space */}
+            <div 
+              className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[85%] h-6 bg-brand-green/20 rounded-full blur-xl pointer-events-none transition-all duration-500"
+              style={{
+                transform: isHovered 
+                  ? "translateX(-50%) scale(0.95)" 
+                  : "translateX(-50%) scale(1)",
+                opacity: isHovered ? 0.8 : 0.5
+              }}
+            />
 
-            {/* Simulated 3D Sandbox depth layer */}
-            <div className="absolute inset-1 border border-white/20 rounded-2xl pointer-events-none" />            {/* Embedded custom style sheet for high-fidelity interactive vector animations */}
+            {/* The Image Container with organic breathing animations and 3D depth */}
+            <div 
+              className="relative w-full h-full rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(15,46,147,0.18)] border-2 border-brand-green/10 bg-brand-sand preserve-3d"
+              style={{
+                animation: "real-student-sway-breath 6s ease-in-out infinite",
+              }}
+            >
+              <img 
+                src="/src/assets/images/student_girl_1779270352412.png" 
+                alt="Cheerful school girl with backpack, student of The Unschooled Mind"
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+
+              {/* Ambient vignette gradient inside the image window to give it 3D depth and blending */}
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-green/10 via-transparent to-transparent pointer-events-none mix-blend-multiply" />
+              
+              {/* Real-time organic light beam reflecting over the frame */}
+              <div className="absolute -inset-x-12 top-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent -skew-y-12 pointer-events-none" />
+            </div>
+
+            {/* Simple local keyframe styles for smooth breathing physics */}
             <style>{`
               .preserve-3d {
                 transform-style: preserve-3d;
               }
               @keyframes real-student-sway-breath {
                 0%, 100% {
-                  transform: translateY(0px) rotate(0.5deg) scale(1) translateZ(20px);
+                  transform: translateY(0px) rotate(0.5deg) scale(1) translateZ(10px);
                 }
                 50% {
-                  transform: translateY(-4px) rotate(-1deg) scale(1.02) translateZ(25px);
+                  transform: translateY(-8px) rotate(-0.5deg) scale(1.02) translateZ(15px);
                 }
               }
-              @keyframes pottery-spin-flat {
-                from { transform: rotate(0deg); }
-                to { transform: rotate(360deg); }
-              }
-              @keyframes morph-clay {
-                0%, 100% { transform: scale(1, 1); filter: brightness(1); }
-                50% { transform: scale(0.9, 1.1) translateY(-2px); filter: brightness(1.06); }
-              }
-              @keyframes hand-left-mold {
-                0%, 100% { transform: translate(0px, 0px) rotate(-2deg); }
-                50% { transform: translate(2px, -0.5px) rotate(1deg); }
-              }
-              @keyframes hand-right-mold {
-                0%, 100% { transform: translate(0px, 0px) rotate(2deg); }
-                50% { transform: translate(-2px, 0.5px) rotate(-1deg); }
-              }
-              @keyframes float-sparkle-1 {
-                0% { transform: translate(0, 0) scale(0) rotate(0deg); opacity: 0; }
-                50% { opacity: 0.9; }
-                100% { transform: translate(24px, -75px) scale(0.9) rotate(45deg); opacity: 0; }
-              }
-              @keyframes float-sparkle-2 {
-                0% { transform: translate(0, 0) scale(0) rotate(0deg); opacity: 0; }
-                50% { opacity: 0.9; }
-                100% { transform: translate(-20px, -65px) scale(1) rotate(90deg); opacity: 0; }
-              }
-              @keyframes badge-float-l {
-                0%, 100% { transform: translateY(0px) rotate(-3deg); }
-                50% { transform: translateY(-6px) rotate(-1.5deg); }
-              }
-              @keyframes badge-float-r {
-                0%, 100% { transform: translateY(0px) rotate(4deg); }
-                50% { transform: translateY(-5px) rotate(2.5deg); }
-              }
             `}</style>
-
-            {/* LAYER 1: 3D Real Student Portrait Window (Single Real Student!) */}
-            <motion.div
-              style={{ x: layer1X, y: layer1Y, z: 20 }}
-              className="absolute inset-0 flex items-center justify-center pb-20 pointer-events-none preserve-3d"
-            >
-              {/* Beautiful, warm-toned Arched Portrait Frame with physical breathing animations */}
-              <div 
-                className="relative w-52 h-64 rounded-t-full border-4 border-brand-green bg-[#0d1b3e] overflow-hidden z-20 preserve-3d"
-                style={{ 
-                  animation: "real-student-sway-breath 6s ease-in-out infinite",
-                  boxShadow: "0 20px 40px rgba(0,0,0,0.5), inset 0 0 40px rgba(0,0,0,0.6)"
-                }}
-              >
-                {/* Embedded High-Fidelity Real Student Image */}
-                <img 
-                  src="/src/assets/images/pottery_learning_1779250424029.png" 
-                  alt="Real Unschooled Student Pottery Learning"
-                  className="w-full h-full object-cover rounded-t-full"
-                  referrerPolicy="no-referrer"
-                />
-
-                {/* Ambient vignette gradient inside the image window to give it 3D depth and blending */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#061543]/60 via-transparent to-black/30 pointer-events-none mix-blend-multiply" />
-                
-                {/* Real-time organic light beam reflecting over the frame */}
-                <div className="absolute -inset-x-12 top-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent -skew-y-12 pointer-events-none" />
-              </div>
-            </motion.div>
-
-            {/* LAYER 2: 3D Pottery Table & Spinning Mud Vase */}
-            <motion.div
-              style={{ x: layer2X, y: layer2Y, z: 60 }}
-              className="absolute inset-x-0 bottom-6 h-36 flex flex-col items-center justify-end pointer-events-none preserve-3d z-30"
-            >
-              <div 
-                className="relative w-64 h-22 bg-brand-sand border-4 border-brand-green rounded-[30px] shadow-[0px_10px_18px_rgba(0,0,0,0.4)] flex items-center justify-center preserve-3d"
-                style={{ transform: "rotateX(48deg)" }}
-              >
-                {/* Rolling stone pottery wheel */}
-                <div className="w-34 h-34 rounded-full bg-stone-300 border-2 border-dashed border-stone-500/80 flex items-center justify-center preserve-3d shadow-xl [transform:translateZ(8px)]">
-                  <div 
-                    className="w-full h-full rounded-full border-6 border-stone-400 border-t-brand-green/45 border-b-brand-green/45 flex items-center justify-center preserve-3d"
-                    style={{ animation: "pottery-spin-flat 4s linear infinite" }}
-                  >
-                    <div className="w-22 h-22 rounded-full border-2 border-dashed border-stone-400/60 flex items-center justify-center">
-                      <div className="w-10 h-10 rounded-full border border-stone-500/40" />
-                    </div>
-                  </div>
-                </div>
-
-                {/* The clay pot taking form */}
-                <div 
-                  className="absolute left-1/2 -translate-x-1/2 -top-12 w-12 h-18 z-20 preserve-3d origin-bottom"
-                  style={{ 
-                    transform: "translateX(-50%) translateZ(35px) rotateX(-48deg)",
-                    animation: "morph-clay 3.5s ease-in-out infinite"
-                  }}
-                >
-                  <div className="w-full h-full flex flex-col justify-between items-center">
-                    {/* Rim */}
-                    <div className="w-10 h-3 bg-[#be583e] rounded-full border-2 border-brand-green shadow-inner" />
-                    {/* Narrowing Neck */}
-                    <div className="w-5.5 h-4 bg-[#c86446] border-x-2 border-brand-green -my-0.5" />
-                    {/* Spherical body */}
-                    <div className="w-13 h-12 bg-[#c86446] rounded-full border-2 border-[#194025] shadow-md" />
-                    {/* Base */}
-                    <div className="w-9 h-3 bg-[#ac4a33] rounded-full border-2 border-brand-green" />
-                  </div>
-                </div>
-
-                {/* Active Math & Trigonometry measurement arc (Learning by Doing) */}
-                <svg 
-                  className="absolute left-1/2 -translate-x-1/2 -top-16 w-32 h-24 pointer-events-none text-brand-yellow/90 overflow-visible z-20"
-                  style={{ transform: "translateZ(38px) rotateX(-48deg)" }}
-                  viewBox="0 0 100 80"
-                >
-                  {/* Dynamic radius vector from turning clay center */}
-                  <path d="M 50 68 L 76 48 A 28 28 0 0 0 24 48 Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 3" className="animate-pulse" />
-                  <text x="50" y="32" fill="currentColor" className="font-mono text-[7px] font-extrabold text-center uppercase tracking-wider" textAnchor="middle">R = 12.8cm (θ = 45°)</text>
-                  <line x1="50" y1="68" x2="76" y2="48" stroke="currentColor" strokeWidth="1" />
-                  <circle cx="76" cy="48" r="2" fill="#e5b32f" />
-                </svg>
-
-                {/* Kid's Left Hand moulding */}
-                <div 
-                  className="absolute -left-1 top-1 w-20 h-14 origin-right"
-                  style={{ 
-                    transform: "translateZ(25px) rotateX(-48deg)",
-                    animation: "hand-left-mold 2.5s ease-in-out infinite"
-                  }}
-                >
-                  <svg className="w-full h-full overflow-visible" viewBox="0 0 60 40">
-                    <path d="M 4 18 C 12 14, 28 16, 48 14 C 53 15, 53 21, 48 23 C 38 23, 18 25, 4 25 Z" fill="#f6cb9d" stroke="#1b4129" strokeWidth="2" />
-                    <circle cx="36" cy="18" r="2.5" fill="#c86446" />
-                  </svg>
-                </div>
-
-                {/* Kid's Right Hand moulding */}
-                <div 
-                  className="absolute -right-1 top-1 w-20 h-14 origin-left"
-                  style={{ 
-                    transform: "translateZ(25px) rotateX(-48deg)",
-                    animation: "hand-right-mold 2.5s ease-in-out infinite"
-                  }}
-                >
-                  <svg className="w-full h-full overflow-visible" viewBox="0 0 60 40">
-                    <path d="M 56 18 C 48 14, 32 16, 12 14 C 7 15, 7 21, 12 23 C 22 23, 42 25, 56 25 Z" fill="#fbd4b1" stroke="#1b4129" strokeWidth="2" />
-                    <circle cx="24" cy="19" r="2.5" fill="#c86446" />
-                  </svg>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Floating Sparks particles jumping from active clay */}
-            <div 
-              className="absolute left-[54%] top-[48%] pointer-events-none z-40 text-brand-yellow"
-              style={{ transform: "translateZ(75px)" }}
-            >
-              <Sparkles className="w-4 h-4 absolute opacity-0" style={{ animation: "float-sparkle-1 2s ease-out infinite" }} />
-              <Sparkles className="w-3.5 h-3.5 absolute opacity-0" style={{ animation: "float-sparkle-2 2.6s ease-out infinite", animationDelay: "0.6s" }} />
-            </div>
-
-            {/* LAYER 3: Interactive Dialogue Badges floating in 3D */}
-            {/* Left Dialogue Bubble */}
-            <motion.div
-              style={{ x: layer2X, y: layer2Y, z: 90, animation: "badge-float-l 4.2s ease-in-out infinite" }}
-              className="absolute top-8 -left-8 lg:-left-12 w-[190px] rounded-2xl bg-white border-2 border-brand-green shadow-[4px_4px_0px_0px_var(--color-brand-green)] p-3.5 z-55 pointer-events-auto"
-            >
-              <div className="flex items-center gap-1.5 mb-1">
-                <Compass className="w-3.5 h-3.5 text-brand-clay animate-spin-slow" />
-                <h4 className="font-rounded font-extrabold text-[10px] text-brand-green uppercase tracking-wider">Unschooling Heart</h4>
-              </div>
-              <p className="font-rounded font-bold text-[10.5px] leading-tight text-brand-green">
-                "No bells, no uniform. Just child curiosity."
-              </p>
-            </motion.div>
-
-            {/* Right Badge */}
-            <motion.div
-              style={{ x: layer3X, y: layer3Y, z: 85, animation: "badge-float-r 3.8s ease-in-out infinite" }}
-              className="absolute top-3 -right-6 lg:-right-10 w-[170px] rounded-xl bg-brand-yellow border-2 border-brand-green shadow-[4px_4px_0px_0px_var(--color-brand-green)] p-3 z-50 pointer-events-auto"
-            >
-              <div className="flex items-center gap-1 mb-1">
-                <Sparkles className="w-3.5 h-3.5 text-brand-clay animate-bounce" />
-                <h4 className="font-rounded font-extrabold text-[9px] text-brand-green uppercase">Artistry in Clay</h4>
-              </div>
-              <p className="font-rounded text-[9.5px] leading-normal font-bold text-brand-green/90">
-                Centering Rajasthan soil on a manual flywheel teaches geometry through touch.
-              </p>
-            </motion.div>
           </motion.div>
         </div>
 

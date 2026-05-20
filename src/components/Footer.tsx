@@ -12,8 +12,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
         
         {/* Left segment */}
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center -ml-3 -mt-3.5 select-none origin-top-left">
+        <div className="flex flex-col gap-4 overflow-visible">
+          <div className="flex items-center -ml-3 -mt-3 select-none origin-top-left overflow-visible">
             <HangingLogo3D scale={0.85} />
           </div>
 
