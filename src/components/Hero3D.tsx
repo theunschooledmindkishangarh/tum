@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { Sparkles, Compass, Eye, Heart, BookOpen } from "lucide-react";
+import studentGirlImg from "../assets/images/student_girl_1779270352412.png";
 
 export default function Hero3D() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -194,7 +195,7 @@ export default function Hero3D() {
               }}
             >
               <img 
-                src="/src/assets/images/student_girl_1779270352412.png" 
+                src={studentGirlImg} 
                 alt="Cheerful school girl with backpack, student of The Unschooled Mind"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"

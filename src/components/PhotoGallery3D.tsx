@@ -2,6 +2,11 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Minimize2, ZoomIn, MapPin, Camera, ChevronLeft, ChevronRight, Instagram } from "lucide-react";
 
+import studentGirlImg from "../assets/images/student_girl_1779270352412.png";
+import outdoorPaintingImg from "../assets/images/outdoor_painting_1779250443852.png";
+import natureExplorationImg from "../assets/images/nature_exploration_1779250482557.png";
+import cozyReadingImg from "../assets/images/cozy_reading_1779250461671.png";
+
 export default function PhotoGallery3D() {
   const [lightboxImage, setLightboxImage] = useState<{ url: string; title: string; desc: string } | null>(null);
   const [activeTab, setActiveTab] = useState<"Activity" | "Celebrations">("Activity");
@@ -9,19 +14,19 @@ export default function PhotoGallery3D() {
 
   const images = [
     {
-      url: "/src/assets/images/student_girl_1779270352412.png",
+      url: studentGirlImg,
       title: "Self-Guided Active Learner",
       desc: "Joy of self-directed primary study, balancing practical doing with boundless natural curiosity.",
       category: "Activity"
     },
     {
-      url: "/src/assets/images/outdoor_painting_1779250443852.png",
+      url: outdoorPaintingImg,
       title: "Collaborative Canvas Painting",
       desc: "Working team-wise on dynamic large-scale murals under a shady tree in our open schoolyard.",
       category: "Activity"
     },
     {
-      url: "/src/assets/images/nature_exploration_1779250482557.png",
+      url: natureExplorationImg,
       title: "Gardening & Seed Cultivation",
       desc: "Pruning seedlings, watering soil, and experiencing life cycle biology through hands-on gardening.",
       category: "Activity"
@@ -33,7 +38,7 @@ export default function PhotoGallery3D() {
       category: "Activity"
     },
     {
-      url: "/src/assets/images/cozy_reading_1779250461671.png",
+      url: cozyReadingImg,
       title: "Cozy Storytelling Circles",
       desc: "Sharing picture books and creative folk stories underneath the rustling leaves of tree canopies.",
       category: "Activity"
