@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Playfair Display", serif;
+  --font-rounded: "Quicksand", sans-serif;
+  
+  --color-brand-green: #0F2E93;
+  --color-brand-sand: #F8F9FD;
+  --color-brand-clay: #FF3B5D;
+  --color-brand-yellow: #FBCE3F;
+}
+
+/* 3D Transform Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-2000 {
+  perspective: 2000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0F2E93;
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF3B5D;
+}
+
+/* Textured Background helpers */
+.organic-grid {
+  background-image: radial-gradient(#0F2E93 0.5px, transparent 0.5px), radial-gradient(#0F2E93 0.5px, #F8F9FD 0.5px);
+  background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
+  opacity: 0.12;
+}
+
+/* Claymorphic shadows */
+.clay-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #0F2E93;
+  box-shadow: 4px 4px 0px 0px #0F2E93;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.clay-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 7px 7px 0px 0px #FF3B5D;
+  border-color: #FF3B5D;
+}
+
+.clay-btn {
+  background: #0F2E93;
+  color: white;
+  border: 2px solid #0F2E93;
+  box-shadow: 3px 3px 0px 0px #FF3B5D;
+  transition: all 0.2s ease;
+}
+
+.clay-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px 0px #FBCE3F;
+  background: #FF3B5D;
+  border-color: #FF3B5D;
+}
+
+.clay-btn-secondary {
+  background: white;
+  color: #0F2E93;
+  border: 2px solid #0F2E93;
+  box-shadow: 3px 3px 0px 0px #0F2E93;
+  transition: all 0.2s ease;
+}
+
+.clay-btn-secondary:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px 0px #FF3B5D;
+  color: #FF3B5D;
+  border-color: #FF3B5D;
+}
+
+/* Leaf element animation */
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(3deg);
+  }
+}
+
+.animate-float {
+  animation: float-gentle 6s ease-in-out infinite;
+}

@@ -1,0 +1,6 @@
+{
+  "name": "The Unschooled Mind - Kishangarh",
+  "description": "An interactive, 3D animated web experience for The Unschooled Mind, an alternative experiential learning school in Kishangarh.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
