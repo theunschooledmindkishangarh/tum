@@ -13,8 +13,13 @@ import {
 } from "lucide-react";
 import { BlogPost } from "../types";
 import { INITIAL_BLOG_POSTS } from "../data/blogData";
+import { resolveAssetUrl } from "../utils/resolveAsset";
 
-export default function AllBlogsPage() {
+interface AllBlogsPageProps {
+  items?: BlogPost[];
+}
+
+export default function AllBlogsPage({ items }: AllBlogsPageProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
 
@@ -23,8 +28,14 @@ export default function AllBlogsPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
+  const rawPosts = (items && items.length > 0) ? items : INITIAL_BLOG_POSTS;
+  const processedPosts = rawPosts.map(post => ({
+    ...post,
+    image: resolveAssetUrl(post.image)
+  }));
+
   // Filtering
-  const filteredPosts = INITIAL_BLOG_POSTS.filter(post => {
+  const filteredPosts = processedPosts.filter(post => {
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           post.snippet.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           post.author.toLowerCase().includes(searchTerm.toLowerCase());

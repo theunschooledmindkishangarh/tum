@@ -1,68 +1,83 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Minimize2, ZoomIn, MapPin, Camera, ChevronLeft, ChevronRight, Instagram } from "lucide-react";
+import { resolveAssetUrl } from "../utils/resolveAsset";
 
 import studentGirlImg from "../assets/images/student_girl_1779270352412.png";
 import outdoorPaintingImg from "../assets/images/outdoor_painting_1779250443852.png";
 import natureExplorationImg from "../assets/images/nature_exploration_1779250482557.png";
 import cozyReadingImg from "../assets/images/cozy_reading_1779250461671.png";
 
-export default function PhotoGallery3D() {
+interface PhotoGalleryProps {
+  items?: Array<{
+    url: string;
+    title: string;
+    desc: string;
+    category: "Activity" | "Celebrations";
+  }>;
+}
+
+export default function PhotoGallery3D({ items }: PhotoGalleryProps) {
   const [lightboxImage, setLightboxImage] = useState<{ url: string; title: string; desc: string } | null>(null);
   const [activeTab, setActiveTab] = useState<"Activity" | "Celebrations">("Activity");
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const images = [
-    {
-      url: studentGirlImg,
-      title: "Self-Guided Active Learner",
-      desc: "Joy of self-directed primary study, balancing practical doing with boundless natural curiosity.",
-      category: "Activity"
-    },
-    {
-      url: outdoorPaintingImg,
-      title: "Collaborative Canvas Painting",
-      desc: "Working team-wise on dynamic large-scale murals under a shady tree in our open schoolyard.",
-      category: "Activity"
-    },
-    {
-      url: natureExplorationImg,
-      title: "Gardening & Seed Cultivation",
-      desc: "Pruning seedlings, watering soil, and experiencing life cycle biology through hands-on gardening.",
-      category: "Activity"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=600&auto=format&fit=crop",
-      title: "Carpentry & Practical Woodwork",
-      desc: "Sanding scrap boards and hammering organic balance planks to understand simple machine laws.",
-      category: "Activity"
-    },
-    {
-      url: cozyReadingImg,
-      title: "Cozy Storytelling Circles",
-      desc: "Sharing picture books and creative folk stories underneath the rustling leaves of tree canopies.",
-      category: "Activity"
-    },
-    // Celebrations category
-    {
-      url: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?q=80&w=600&auto=format&fit=crop",
-      title: "Annual Organic Food Festival",
-      desc: "Celebrating student-grown heritage vegetables, presenting home-ground spices, and catering organic recipes to our families and neighbors.",
-      category: "Celebrations"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=600&auto=format&fit=crop",
-      title: "Seasonal Solstice Gatherings",
-      desc: "Parent council assemblies under lanterns, marked by organic slow food fires and open acoustic songs.",
-      category: "Celebrations"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=600&auto=format&fit=crop",
-      title: "Sovereign Arts & Theater Day",
-      desc: "A massive celebration of visual play-acting, physical theater works, custom puppets, and creative light installations.",
-      category: "Celebrations"
-    }
-  ];
+  const images = (items && items.length > 0) 
+    ? items.map(img => ({
+        ...img,
+        url: resolveAssetUrl(img.url)
+      }))
+    : [
+        {
+          url: studentGirlImg,
+          title: "Self-Guided Active Learner",
+          desc: "Joy of self-directed primary study, balancing practical doing with boundless natural curiosity.",
+          category: "Activity" as const
+        },
+        {
+          url: outdoorPaintingImg,
+          title: "Collaborative Canvas Painting",
+          desc: "Working team-wise on dynamic large-scale murals under a shady tree in our open schoolyard.",
+          category: "Activity" as const
+        },
+        {
+          url: natureExplorationImg,
+          title: "Gardening & Seed Cultivation",
+          desc: "Pruning seedlings, watering soil, and experiencing life cycle biology through hands-on gardening.",
+          category: "Activity" as const
+        },
+        {
+          url: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=600&auto=format&fit=crop",
+          title: "Carpentry & Practical Woodwork",
+          desc: "Sanding scrap boards and hammering organic balance planks to understand simple machine laws.",
+          category: "Activity" as const
+        },
+        {
+          url: cozyReadingImg,
+          title: "Cozy Storytelling Circles",
+          desc: "Sharing picture books and creative folk stories underneath the rustling leaves of tree canopies.",
+          category: "Activity" as const
+        },
+        // Celebrations category
+        {
+          url: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?q=80&w=600&auto=format&fit=crop",
+          title: "Annual Organic Food Festival",
+          desc: "Celebrating student-grown heritage vegetables, presenting home-ground spices, and catering organic recipes to our families and neighbors.",
+          category: "Celebrations" as const
+        },
+        {
+          url: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=600&auto=format&fit=crop",
+          title: "Seasonal Solstice Gatherings",
+          desc: "Parent council assemblies under lanterns, marked by organic slow food fires and open acoustic songs.",
+          category: "Celebrations" as const
+        },
+        {
+          url: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=600&auto=format&fit=crop",
+          title: "Sovereign Arts & Theater Day",
+          desc: "A massive celebration of visual play-acting, physical theater works, custom puppets, and creative light installations.",
+          category: "Celebrations" as const
+        }
+      ];
 
   const filteredImages = images.filter((img) => img.category === activeTab);
   const currentImg = filteredImages[activeIndex] || filteredImages[0] || images[0];

@@ -12,8 +12,13 @@ import {
 } from "lucide-react";
 import { BlogPost } from "../types";
 import { INITIAL_BLOG_POSTS } from "../data/blogData";
+import { resolveAssetUrl } from "../utils/resolveAsset";
 
-export default function BlogSection() {
+interface BlogSectionProps {
+  items?: BlogPost[];
+}
+
+export default function BlogSection({ items }: BlogSectionProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All Blog Posts");
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
@@ -21,8 +26,14 @@ export default function BlogSection() {
   // Categories
   const categories = ["All Blog Posts"];
 
+  const rawPosts = (items && items.length > 0) ? items : INITIAL_BLOG_POSTS;
+  const processedPosts = rawPosts.map(post => ({
+    ...post,
+    image: resolveAssetUrl(post.image)
+  }));
+
   // Filtering
-  const filteredPosts = INITIAL_BLOG_POSTS.filter(post => {
+  const filteredPosts = processedPosts.filter(post => {
     const matchesCategory = activeCategory === "All" || activeCategory === "All Blog Posts";
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           post.snippet.toLowerCase().includes(searchTerm.toLowerCase()) ||
