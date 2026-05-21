@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
-import { Shield } from "lucide-react";
 import Header from "./components/Header";
 import Hero3D from "./components/Hero3D";
 import About3D from "./components/About3D";
@@ -9,8 +8,8 @@ import VideoGallery from "./components/VideoGallery";
 import BlogSection from "./components/BlogSection";
 import ContactSection from "./components/ContactSection";
 import AllBlogsPage from "./components/AllBlogsPage";
+import AllVideosPage from "./components/AllVideosPage";
 import Footer from "./components/Footer";
-import ControlPanel from "./components/ControlPanel";
 import initialDynamicContent from "./data/siteDynamicContent.json";
 import { extractYoutubeId } from "./utils/githubService";
 
@@ -24,9 +23,6 @@ export default function App() {
 
   // Track the current location hash to handle custom single-page routing
   const [currentHash, setCurrentHash] = useState(() => window.location.hash);
-
-  // Is control panel portal open
-  const [isPortalOpen, setIsPortalOpen] = useState(false);
 
   // Centralized Dynamic Content State
   const [content, setContent] = useState(() => {
@@ -113,12 +109,13 @@ export default function App() {
   };
 
   const isAllBlogs = currentHash === "#all-blog-posts";
+  const isAllVideos = currentHash === "#all-videos";
 
   return (
     <div className="bg-brand-sand min-h-screen text-brand-green selection:bg-brand-clay selection:text-white relative pb-16">
       
       {/* 3D Animated Top Scroll Indicator (Only active for home scrolling) */}
-      {!isAllBlogs && (
+      {!isAllBlogs && !isAllVideos && (
         <motion.div
           className="fixed top-0 left-0 right-0 h-1.5 bg-brand-clay origin-left z-55"
           style={{ scaleX }}
@@ -132,6 +129,9 @@ export default function App() {
         {isAllBlogs ? (
           /* Separate Dedicated All Blog Posts Page */
           <AllBlogsPage items={content.blogs} />
+        ) : isAllVideos ? (
+          /* Separate Dedicated All Videos Page */
+          <AllVideosPage items={content.videos} />
         ) : (
           /* Standard Parallax Educational Layout */
           <>
@@ -158,29 +158,6 @@ export default function App() {
 
       {/* Cohesive Legal & Social Footer */}
       <Footer />
-
-      {/* Discreet floating Administrative Portal Action Button */}
-      <div className="fixed bottom-6 right-6 z-90">
-        <motion.button
-          onClick={() => setIsPortalOpen(true)}
-          whileHover={{ scale: 1.08, rotate: 3 }}
-          whileTap={{ scale: 0.95 }}
-          className="p-3.5 bg-brand-clay hover:bg-brand-green border-2 border-brand-green text-white rounded-full flex items-center justify-center shadow-[4px_4px_0px_0px_var(--color-brand-green)] hover:shadow-none translate-x-0 hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer group"
-          title="Makerspace Portal"
-        >
-          <Shield className="w-5 h-5 text-brand-yellow group-hover:rotate-12 transition-transform" />
-          <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-in-out font-rounded font-extrabold text-xs whitespace-nowrap group-hover:ml-2 text-brand-sand">
-            Makerspace Portal
-          </span>
-        </motion.button>
-      </div>
-
-      {/* Makerspace Control Panel Portal Overlay Form */}
-      <ControlPanel 
-        isOpen={isPortalOpen} 
-        onClose={() => setIsPortalOpen(false)} 
-        onContentAdded={handleContentAdded}
-      />
 
     </div>
   );

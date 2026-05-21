@@ -56,13 +56,11 @@ export default function VideoGallery({ items }: VideoGalleryProps) {
         }
       ];
 
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("Creative Expression");
 
-  const categories = ["All", "Creative Expression", "Active Discoveries", "Daily Learning", "Sovereign Mind"];
+  const categories = ["Creative Expression", "Active Discoveries", "Daily Learning", "Sovereign Mind"];
 
-  const filteredVideos = (selectedCategory === "All"
-    ? videos
-    : videos.filter((v) => v.category === selectedCategory)) || videos;
+  const filteredVideos = videos.filter((v) => v.category === selectedCategory) || videos;
 
   // Make sure we clamp index safely inside the filtered range
   const clampedIndex = activeIndex >= filteredVideos.length ? 0 : activeIndex;
@@ -275,6 +273,19 @@ export default function VideoGallery({ items }: VideoGalleryProps) {
                 </div>
               </div>
             )}
+
+            {/* All Videos trigger button below indicators */}
+            <div className="mt-4">
+              <button
+                onClick={() => {
+                  window.location.hash = "#all-videos";
+                }}
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-brand-clay hover:bg-brand-green border-2 border-brand-green text-white font-rounded font-extrabold text-xs rounded-xl shadow-[3px_3px_0px_0px_var(--color-brand-green)] hover:shadow-none translate-x-[0px] translate-y-[0px] hover:translate-x-[1.5px] hover:translate-y-[1.5px] transition-all cursor-pointer group"
+              >
+                <Tv className="w-4 h-4 group-hover:rotate-6 transition-transform text-brand-yellow" />
+                <span>All Videos ({videos.length})</span>
+              </button>
+            </div>
           </div>
         </div>
 
