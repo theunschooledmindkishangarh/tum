@@ -13,5 +13,12 @@ export function resolveAssetUrl(url: string): string {
   if (url.includes("outdoor_painting")) return outdoorPaintingImg;
   if (url.includes("nature_exploration")) return natureExplorationImg;
   if (url.includes("cozy_reading")) return cozyReadingImg;
+  
+  if (url.includes("drive.google.com")) {
+    const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
+    if (match && match[1]) {
+      return `https://docs.google.com/uc?export=view&id=${match[1]}`;
+    }
+  }
   return url;
 }

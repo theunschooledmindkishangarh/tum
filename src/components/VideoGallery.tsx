@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Play, Tv, Youtube, BookOpen, Clock, Users, Flame, ChevronLeft, ChevronRight } from "lucide-react";
 import { extractYoutubeId } from "../utils/githubService";
@@ -20,6 +20,16 @@ interface VideoGalleryProps {
 export default function VideoGallery({ items }: VideoGalleryProps) {
   const [activePlayId, setActivePlayId] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const mediaContainerRef = useRef<HTMLDivElement>(null);
+
+  const handlePlayGalleryVideo = (vidId: string) => {
+    setActivePlayId(vidId);
+    if (mediaContainerRef.current) {
+      mediaContainerRef.current.requestFullscreen().catch((err) => {
+        console.warn("Fullscreen request failed:", err);
+      });
+    }
+  };
 
   const videos = (items && items.length > 0)
     ? items
@@ -146,7 +156,10 @@ export default function VideoGallery({ items }: VideoGalleryProps) {
               className="group flex flex-col bg-brand-sand/30 border-3 border-brand-green rounded-2xl overflow-hidden shadow-[4px_4px_0px_0px_var(--color-brand-green)] hover:shadow-[6px_6px_0px_0px_var(--color-brand-clay)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all"
             >
               {/* Media Screen Container */}
-              <div className="relative aspect-video w-full bg-black border-b-2 border-brand-green overflow-hidden">
+              <div 
+                ref={mediaContainerRef}
+                className="relative aspect-video w-full bg-black border-b-2 border-brand-green overflow-hidden"
+              >
                 <AnimatePresence mode="wait">
                   {!isPlaying ? (
                     <motion.div
@@ -155,7 +168,7 @@ export default function VideoGallery({ items }: VideoGalleryProps) {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       className="absolute inset-0 w-full h-full cursor-pointer"
-                      onClick={() => setActivePlayId(currentVid.id)}
+                      onClick={() => handlePlayGalleryVideo(currentVid.id)}
                     >
                       <img
                         src={currentVid.thumbnailUrl}
@@ -210,9 +223,6 @@ export default function VideoGallery({ items }: VideoGalleryProps) {
                 <h3 className="font-display font-medium text-[15px] sm:text-base text-brand-green leading-snug group-hover:text-brand-clay transition-colors font-semibold">
                   {currentVid.title}
                 </h3>
-                <p className="font-rounded font-medium text-[11px] sm:text-xs text-brand-green/60 mt-1.5 line-clamp-2">
-                  {currentVid.description}
-                </p>
               </div>
             </motion.div>
           </AnimatePresence>

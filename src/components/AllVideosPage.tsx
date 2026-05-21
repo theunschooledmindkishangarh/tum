@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   Tv, 
@@ -6,8 +6,6 @@ import {
   Clock, 
   X, 
   ArrowLeft,
-  ChevronLeft,
-  ChevronRight,
   Play
 } from "lucide-react";
 import { VideoItem } from "../types";
@@ -21,6 +19,16 @@ export default function AllVideosPage({ items }: AllVideosPageProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [playingVideo, setPlayingVideo] = useState<VideoItem | null>(null);
+  const playerContainerRef = useRef<HTMLDivElement>(null);
+
+  const handlePlayVideo = (vid: VideoItem, cleanedId: string) => {
+    setPlayingVideo({ ...vid, youtubeId: cleanedId });
+    if (playerContainerRef.current) {
+      playerContainerRef.current.requestFullscreen().catch((err) => {
+        console.warn("Fullscreen request failed:", err);
+      });
+    }
+  };
 
   // Scroll to top on load
   useEffect(() => {
@@ -38,22 +46,6 @@ export default function AllVideosPage({ items }: AllVideosPageProps) {
     const matchesCategory = selectedCategory === "All" || vid.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
-
-  const handlePrevVideo = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!playingVideo || filteredVideos.length === 0) return;
-    const currIdx = filteredVideos.findIndex(vid => vid.id === playingVideo.id);
-    const prevIdx = (currIdx - 1 + filteredVideos.length) % filteredVideos.length;
-    setPlayingVideo(filteredVideos[prevIdx]);
-  };
-
-  const handleNextVideo = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!playingVideo || filteredVideos.length === 0) return;
-    const currIdx = filteredVideos.findIndex(vid => vid.id === playingVideo.id);
-    const nextIdx = (currIdx + 1) % filteredVideos.length;
-    setPlayingVideo(filteredVideos[nextIdx]);
-  };
 
   const handleBackToHome = () => {
     window.location.hash = "#home";
@@ -153,7 +145,7 @@ export default function AllVideosPage({ items }: AllVideosPageProps) {
 
         {/* Video grid */}
         {filteredVideos.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8">
             {filteredVideos.map((vid, index) => {
               const cleanedId = extractYoutubeId(vid.youtubeId || "") || extractYoutubeId(vid.videoUrl || "") || vid.youtubeId || "";
               return (
@@ -162,8 +154,8 @@ export default function AllVideosPage({ items }: AllVideosPageProps) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
-                  onClick={() => setPlayingVideo({ ...vid, youtubeId: cleanedId })}
-                  className="group flex flex-col bg-white border-3 border-brand-green rounded-2xl overflow-hidden shadow-[4px_4px_0px_0px_var(--color-brand-green)] hover:shadow-[7px_7px_0px_0px_var(--color-brand-clay)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all cursor-pointer h-full"
+                  onClick={() => handlePlayVideo(vid, cleanedId)}
+                  className="group flex flex-col bg-white border-2 sm:border-3 border-brand-green rounded-xl sm:rounded-2xl overflow-hidden shadow-[2.5px_2.5px_0px_0px_var(--color-brand-green)] sm:shadow-[4px_4px_0px_0px_var(--color-brand-green)] hover:shadow-[4px_4px_0px_0px_var(--color-brand-clay)] sm:hover:shadow-[7px_7px_0px_0px_var(--color-brand-clay)] hover:translate-x-[-1px] sm:hover:translate-x-[-2px] hover:translate-y-[-1px] sm:hover:translate-y-[-2px] transition-all cursor-pointer h-full"
                 >
                   {/* Thumbnail / Play Button area */}
                   <div className="relative aspect-[16/10] w-full bg-brand-green/5 overflow-hidden border-b-2 border-brand-green">
@@ -177,32 +169,29 @@ export default function AllVideosPage({ items }: AllVideosPageProps) {
                     
                     {/* Hover Play Icon */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-brand-clay text-white flex items-center justify-center border-2 border-brand-green shadow-lg group-hover:scale-110 group-hover:bg-brand-green transition-all">
-                        <Play className="w-5 h-5 fill-white ml-0.5" />
+                      <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-brand-clay text-white flex items-center justify-center border-2 border-brand-green shadow-sm sm:shadow-lg group-hover:scale-110 group-hover:bg-brand-green transition-all">
+                        <Play className="w-3 h-3 sm:w-5 sm:h-5 fill-white ml-0.5" />
                       </div>
                     </div>
 
                     {/* Duration badge */}
-                    <span className="absolute bottom-2.5 right-2.5 px-1.5 py-0.5 rounded bg-black/75 backdrop-blur-sm text-white text-[9px] font-mono flex items-center gap-1">
+                    <span className="absolute bottom-1.5 right-1.5 sm:bottom-2.5 sm:right-2.5 px-1 sm:px-1.5 py-0.5 rounded bg-black/75 backdrop-blur-sm text-white text-[8px] sm:text-[9px] font-mono flex items-center gap-1">
                       <Clock className="w-2.5 h-2.5 text-brand-yellow" />
                       {vid.duration}
                     </span>
 
                     {/* Category Label overlay */}
-                    <span className="absolute top-3 left-3 px-2 py-0.5 rounded bg-brand-yellow font-rounded font-black text-[8px] uppercase tracking-wider text-brand-green border border-brand-green shadow-[1px_1px_0px_0px_var(--color-brand-green)]">
+                    <span className="absolute top-1.5 left-1.5 sm:top-3 sm:left-3 px-1.5 sm:px-2 py-0.5 rounded bg-brand-yellow font-rounded font-black text-[7px] sm:text-[8px] uppercase tracking-wider text-brand-green border border-brand-green shadow-[1px_1px_0px_0px_var(--color-brand-green)]">
                       {vid.category}
                     </span>
                   </div>
 
                   {/* Body Content */}
-                  <div className="p-5 flex flex-col justify-between flex-grow">
+                  <div className="p-3 sm:p-5 flex flex-col justify-between flex-grow">
                     <div>
-                      <h3 className="font-display font-medium text-sm sm:text-base text-brand-green leading-snug group-hover:text-brand-clay transition-colors font-semibold">
+                      <h3 className="font-display text-xs sm:text-base text-brand-green leading-snug group-hover:text-brand-clay transition-colors font-semibold line-clamp-2">
                         {vid.title}
                       </h3>
-                      <p className="font-rounded font-medium text-[11px] sm:text-xs text-brand-green/60 mt-1.5 line-clamp-3">
-                        {vid.description}
-                      </p>
                     </div>
                   </div>
                 </motion.article>
@@ -213,96 +202,46 @@ export default function AllVideosPage({ items }: AllVideosPageProps) {
 
       </div>
 
-      {/* Pop-up Video Player Dialog Modal */}
-      <AnimatePresence>
+      {/* Immersive Video Player Dialog Modal */}
+      <div 
+        ref={playerContainerRef}
+        className={`fixed inset-0 bg-black flex items-center justify-center z-90 transition-all duration-300 ${
+          playingVideo ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => {
+          setPlayingVideo(null);
+          if (document.fullscreenElement) {
+            document.exitFullscreen().catch(err => console.log(err));
+          }
+        }}
+      >
         {playingVideo && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-brand-green/70 backdrop-blur-md flex items-center justify-center p-4 z-90"
-            onClick={() => setPlayingVideo(null)}
-          >
-            {/* Desktop Left navigation buttons */}
+          <div className="relative w-screen h-screen bg-black flex items-center justify-center">
+            {/* Immersive YouTube Player spanning full size */}
+            <iframe
+              src={`https://www.youtube.com/embed/${playingVideo.youtubeId}?autoplay=1&mute=0&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&autoplay=1`}
+              title={playingVideo.title}
+              className="w-full h-full border-none"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+
+            {/* Immersive Floating Close Button */}
             <button
-              onClick={(e) => handlePrevVideo(e)}
-              className="mr-6 p-4 rounded-full bg-white border-2 border-brand-green text-brand-green hover:bg-brand-clay hover:text-white hover:border-brand-clay hover:scale-105 active:scale-95 transition-all shadow-lg cursor-pointer hidden md:flex items-center justify-center shrink-0"
-              aria-label="Previous Video"
+              onClick={() => {
+                setPlayingVideo(null);
+                if (document.fullscreenElement) {
+                  document.exitFullscreen().catch(err => console.log(err));
+                }
+              }}
+              className="absolute top-6 right-6 z-100 p-3 rounded-full bg-black/60 hover:bg-brand-clay border border-white/30 text-white transition-all hover:scale-110 cursor-pointer shadow-2xl"
+              aria-label="Close Player"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <X className="w-6 h-6" />
             </button>
-
-            <motion.div
-              initial={{ scale: 0.95, y: 15 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 15 }}
-              transition={{ type: "spring", stiffness: 350, damping: 25 }}
-              className="bg-white border-4 border-brand-green w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl relative flex flex-col max-h-[88vh]"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Close Button overlay */}
-              <div className="absolute top-4 right-4 z-20 flex gap-2">
-                <button
-                  onClick={() => setPlayingVideo(null)}
-                  className="p-2.5 rounded-xl bg-brand-clay border-2 border-brand-green text-white hover:scale-105 transition-all shadow-sm cursor-pointer"
-                  aria-label="Close Player"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* YouTube Player aspect standard player */}
-              <div className="relative aspect-video w-full bg-black border-b-2 border-brand-green overflow-hidden">
-                <iframe
-                  src={`https://www.youtube.com/embed/${playingVideo.youtubeId}?autoplay=1&mute=0&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3`}
-                  title={playingVideo.title}
-                  className="w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                />
-              </div>
-
-              {/* Title & Description under Player */}
-              <div className="p-6 md:p-8 overflow-y-auto max-h-[25vh]">
-                <span className="px-2.5 py-1 text-[9px] font-rounded font-black uppercase bg-brand-yellow text-brand-green rounded-md border border-brand-green inline-block mb-3">
-                  {playingVideo.category}
-                </span>
-                <h3 className="font-display font-semibold text-lg md:text-xl text-brand-green leading-snug">
-                  {playingVideo.title}
-                </h3>
-                <p className="font-rounded font-medium text-xs md:text-sm text-brand-green/70 mt-2 leading-relaxed">
-                  {playingVideo.description}
-                </p>
-              </div>
-
-              {/* Mobile next/prev controls in modal footer */}
-              <div className="flex border-t border-brand-green/10 justify-between items-center p-3 md:hidden">
-                <button
-                  onClick={(e) => handlePrevVideo(e)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-green text-xs font-rounded font-bold text-brand-green"
-                >
-                  <ChevronLeft className="w-4 h-4" /> Prev
-                </button>
-                <button
-                  onClick={(e) => handleNextVideo(e)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-green text-xs font-rounded font-bold text-brand-green"
-                >
-                  Next <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            </motion.div>
-
-            {/* Desktop Right navigation buttons */}
-            <button
-              onClick={(e) => handleNextVideo(e)}
-              className="ml-6 p-4 rounded-full bg-white border-2 border-brand-green text-brand-green hover:bg-brand-clay hover:text-white hover:border-brand-clay hover:scale-105 active:scale-95 transition-all shadow-lg cursor-pointer hidden md:flex items-center justify-center shrink-0"
-              aria-label="Next Video"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </div>
     </div>
   );
 }
