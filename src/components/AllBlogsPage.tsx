@@ -9,7 +9,9 @@ import {
   ArrowLeft,
   ArrowRight,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Share2,
+  Check
 } from "lucide-react";
 import { BlogPost } from "../types";
 import { INITIAL_BLOG_POSTS } from "../data/blogData";
@@ -22,6 +24,7 @@ interface AllBlogsPageProps {
 export default function AllBlogsPage({ items }: AllBlogsPageProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+  const [copiedPostId, setCopiedPostId] = useState<string | null>(null);
 
   // Scroll to top on load
   useEffect(() => {
@@ -33,6 +36,24 @@ export default function AllBlogsPage({ items }: AllBlogsPageProps) {
     ...post,
     image: resolveAssetUrl(post.image)
   }));
+
+  // Hash deep-linking handler
+  useEffect(() => {
+    const handleCheckHash = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith("#blog-")) {
+        const id = hash.replace("#blog-", "");
+        const found = processedPosts.find(p => p.id === id);
+        if (found) {
+          setSelectedPost(found);
+        }
+      }
+    };
+
+    handleCheckHash();
+    window.addEventListener("hashchange", handleCheckHash);
+    return () => window.removeEventListener("hashchange", handleCheckHash);
+  }, [processedPosts]);
 
   // Filtering
   const filteredPosts = processedPosts.filter(post => {
@@ -47,7 +68,9 @@ export default function AllBlogsPage({ items }: AllBlogsPageProps) {
     if (!selectedPost || filteredPosts.length === 0) return;
     const currIdx = filteredPosts.findIndex(post => post.id === selectedPost.id);
     const prevIdx = (currIdx - 1 + filteredPosts.length) % filteredPosts.length;
-    setSelectedPost(filteredPosts[prevIdx]);
+    const nextPost = filteredPosts[prevIdx];
+    setSelectedPost(nextPost);
+    window.location.hash = `#blog-${nextPost.id}`;
   };
 
   const handleNextPost = (e: React.MouseEvent) => {
@@ -55,7 +78,55 @@ export default function AllBlogsPage({ items }: AllBlogsPageProps) {
     if (!selectedPost || filteredPosts.length === 0) return;
     const currIdx = filteredPosts.findIndex(post => post.id === selectedPost.id);
     const nextIdx = (currIdx + 1) % filteredPosts.length;
-    setSelectedPost(filteredPosts[nextIdx]);
+    const nextPost = filteredPosts[nextIdx];
+    setSelectedPost(nextPost);
+    window.location.hash = `#blog-${nextPost.id}`;
+  };
+
+  const handleSelectPost = (post: BlogPost) => {
+    setSelectedPost(post);
+    window.location.hash = `#blog-${post.id}`;
+  };
+
+  const handleCloseModal = () => {
+    setSelectedPost(null);
+    if (window.location.hash.startsWith("#blog-")) {
+      window.location.hash = "#all-blog-posts";
+    }
+  };
+
+  const handleShare = (e: React.MouseEvent, postId: string) => {
+    e.stopPropagation();
+    const shareUrl = `${window.location.origin}${window.location.pathname}#blog-${postId}`;
+    const post = processedPosts.find(p => p.id === postId);
+    const title = post ? post.title : "The Unschooled Mind Blog";
+    const text = post ? post.snippet : "Read this article from The Unschooled Mind Kishangarh";
+
+    const copyToClipboard = () => {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        setCopiedPostId(postId);
+        setTimeout(() => setCopiedPostId(null), 2000);
+      }).catch(err => {
+        console.error("Failed to copy direct shared URL: ", err);
+      });
+    };
+
+    if (navigator.share) {
+      navigator.share({
+        title: title,
+        text: text,
+        url: shareUrl
+      })
+      .then(() => {
+        console.log("Shared successfully via native share");
+      })
+      .catch((err) => {
+        console.warn("Native share cancelled or failed, falling back to copy to clipboard: ", err);
+        copyToClipboard();
+      });
+    } else {
+      copyToClipboard();
+    }
   };
 
   const handleBackToHome = () => {
@@ -138,7 +209,7 @@ export default function AllBlogsPage({ items }: AllBlogsPageProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
-                onClick={() => setSelectedPost(post)}
+                onClick={() => handleSelectPost(post)}
                 className="group flex flex-col bg-white border-3 border-brand-green rounded-2xl overflow-hidden shadow-[4px_4px_0px_0px_var(--color-brand-green)] hover:shadow-[7px_7px_0px_0px_var(--color-brand-clay)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all cursor-pointer h-full"
               >
                 {/* Image */}
@@ -164,10 +235,32 @@ export default function AllBlogsPage({ items }: AllBlogsPageProps) {
                   </div>
 
                   {/* Card footer details */}
-                  <div className="pt-4 border-t border-brand-green/10 flex items-center justify-end">
+                  <div className="pt-4 border-t border-brand-green/10 flex items-center justify-between gap-2">
+                    <button
+                      onClick={(e) => handleShare(e, post.id)}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 border-brand-green text-[10px] font-rounded font-extrabold cursor-pointer transition-all ${
+                        copiedPostId === post.id
+                          ? "bg-brand-green text-white border-brand-green"
+                          : "bg-white text-brand-green hover:bg-brand-clay hover:text-white hover:border-brand-clay shadow-[2px_2px_0px_0px_var(--color-brand-green)] hover:shadow-none"
+                      }`}
+                      title="Share this article link"
+                    >
+                      {copiedPostId === post.id ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-brand-yellow" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Share2 className="w-3.5 h-3.5" />
+                          <span>Share</span>
+                        </>
+                      )}
+                    </button>
+
                     <span className="inline-flex items-center gap-1 text-[10px] font-rounded font-extrabold text-brand-clay group-hover:translate-x-0.5 transition-transform">
-                      <span>Read Log</span>
-                      <ArrowRight className="w-3 h-3" />
+                      <span>Read Blog</span>
+                      <ArrowRight className="w-3" />
                     </span>
                   </div>
                 </div>
@@ -186,7 +279,7 @@ export default function AllBlogsPage({ items }: AllBlogsPageProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-brand-green/50 backdrop-blur-md flex items-center justify-center p-4 z-90 overflow-y-auto"
-            onClick={() => setSelectedPost(null)}
+            onClick={handleCloseModal}
           >
             {/* Desktop Navigation buttons */}
             <button
@@ -207,7 +300,29 @@ export default function AllBlogsPage({ items }: AllBlogsPageProps) {
             >
               <div className="absolute top-4 right-4 z-20 flex gap-2">
                 <button
-                  onClick={() => setSelectedPost(null)}
+                  onClick={(e) => handleShare(e, selectedPost.id)}
+                  className={`p-2.5 rounded-xl border-2 border-brand-green flex items-center gap-1.5 font-rounded font-extrabold text-xs transition-colors shadow-sm cursor-pointer ${
+                    copiedPostId === selectedPost.id
+                      ? "bg-brand-green text-white border-brand-green"
+                      : "bg-[#FFFDEC] text-brand-green hover:bg-brand-yellow"
+                  }`}
+                  title="Copy Direct shared link"
+                >
+                  {copiedPostId === selectedPost.id ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-brand-yellow" />
+                      <span className="hidden sm:inline">Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Share2 className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">Share</span>
+                    </>
+                  )}
+                </button>
+
+                <button
+                  onClick={handleCloseModal}
                   className="p-2.5 rounded-xl bg-brand-clay border-2 border-brand-green text-white hover:scale-105 transition-all shadow-sm cursor-pointer"
                   aria-label="Close"
                 >

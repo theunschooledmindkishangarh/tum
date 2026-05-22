@@ -3,12 +3,13 @@ import { motion, useScroll, useSpring } from "motion/react";
 import Header from "./components/Header";
 import Hero3D from "./components/Hero3D";
 import About3D from "./components/About3D";
-import PhotoGallery3D from "./components/PhotoGallery3D";
+import DynamicDriveGallery from "./components/DynamicDriveGallery";
 import VideoGallery from "./components/VideoGallery";
 import BlogSection from "./components/BlogSection";
 import ContactSection from "./components/ContactSection";
 import AllBlogsPage from "./components/AllBlogsPage";
 import AllVideosPage from "./components/AllVideosPage";
+import AllPhotosPage from "./components/AllPhotosPage";
 import Footer from "./components/Footer";
 import initialDynamicContent from "./data/siteDynamicContent.json";
 import { extractYoutubeId } from "./utils/githubService";
@@ -252,15 +253,16 @@ export default function App() {
 
   const isAllBlogs = currentHash === "#all-blog-posts";
   const isAllVideos = currentHash === "#all-videos";
+  const isAllPhotos = currentHash === "#all-photos";
 
   return (
     <div className="bg-brand-sand min-h-screen text-brand-green selection:bg-brand-clay selection:text-white relative pb-16">
       
       {/* 3D Animated Top Scroll Indicator (Only active for home scrolling) */}
-      {!isAllBlogs && !isAllVideos && (
+      {!isAllBlogs && !isAllVideos && !isAllPhotos && (
         <motion.div
-          className="fixed top-0 left-0 right-0 h-1.5 bg-brand-clay origin-left z-55"
-          style={{ scaleX }}
+           className="fixed top-0 left-0 right-0 h-1.5 bg-brand-clay origin-left z-55"
+           style={{ scaleX }}
         />
       )}
 
@@ -274,6 +276,9 @@ export default function App() {
         ) : isAllVideos ? (
           /* Separate Dedicated All Videos Page */
           <AllVideosPage items={content.videos} />
+        ) : isAllPhotos ? (
+          /* Separate Dedicated All Photos Page */
+          <AllPhotosPage />
         ) : (
           /* Standard Parallax Educational Layout */
           <>
@@ -283,8 +288,8 @@ export default function App() {
             {/* Philosophy Card Flipping Section */}
             <About3D />
 
-            {/* 3D Cylindrical Perspective Active Photo Gallery */}
-            <PhotoGallery3D items={content.photos} />
+            {/* Dynamic Automated Google Drive Image Grid Gallery */}
+            <DynamicDriveGallery />
 
             {/* Video Diaries Grid (with embeds) */}
             <VideoGallery items={content.videos} />
