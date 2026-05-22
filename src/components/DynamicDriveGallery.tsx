@@ -7,7 +7,8 @@ import {
   Camera, 
   ChevronLeft, 
   ChevronRight,
-  ArrowRight
+  ArrowRight,
+  Instagram
 } from "lucide-react";
 import { fetchDriveImages, DriveGalleryItem, formatTitle } from "../utils/driveService";
 
@@ -209,6 +210,37 @@ export default function DynamicDriveGallery() {
             </p>
           </div>
         )}
+
+        {/* Instagram Channel Callout Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16 bg-brand-sand/50 border-3 border-brand-clay rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 text-left"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-brand-clay flex items-center justify-center text-white border-2 border-brand-green">
+              <Instagram className="w-7 h-7" />
+            </div>
+            <div>
+              <h4 className="font-display font-medium text-lg text-brand-green leading-tight">
+                Want to see day-to-day moments?
+              </h4>
+              <p className="font-rounded font-medium text-xs text-brand-green/70 mt-1">
+                Follow us on Instagram for daily updates, behind-the-scenes play, and creative children logs from Kishangarh Center.
+              </p>
+            </div>
+          </div>
+
+          <a
+            href="https://www.instagram.com/the_unschooled_mind_kishangarh/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-3 rounded-xl bg-brand-clay border-2 border-brand-green font-rounded font-bold text-xs text-white shadow-[3px_3px_0px_0px_var(--color-brand-green)] hover:bg-brand-clay/90 hover:translate-y-[-1px] transition-all whitespace-nowrap"
+          >
+            Follow on Instagram
+          </a>
+        </motion.div>
 
       </div>
 
