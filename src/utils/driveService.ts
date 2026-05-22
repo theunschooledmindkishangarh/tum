@@ -16,7 +16,8 @@ export const formatTitle = (filename: string): string => {
 };
 
 export const fetchDriveImages = async (): Promise<DriveGalleryItem[]> => {
-  const folderUrl = `https://drive.google.com/drive/folders/${PUBLIC_FOLDER_ID}`;
+  const timestamp = Date.now();
+  const folderUrl = `https://drive.google.com/drive/folders/${PUBLIC_FOLDER_ID}?usp=sharing&t=${timestamp}`;
   const configs = [
     {
       url: `https://corsproxy.io/?${encodeURIComponent(folderUrl)}`,
@@ -27,7 +28,7 @@ export const fetchDriveImages = async (): Promise<DriveGalleryItem[]> => {
       type: "raw" as const
     },
     {
-      url: `https://api.allorigins.win/get?url=${encodeURIComponent(folderUrl)}`,
+      url: `https://api.allorigins.win/get?url=${encodeURIComponent(folderUrl)}&_cb=${timestamp}`,
       type: "json" as const
     },
     {
@@ -44,7 +45,14 @@ export const fetchDriveImages = async (): Promise<DriveGalleryItem[]> => {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 6000); // 6 seconds timeout per attempt
       
-      const res = await fetch(cfg.url, { signal: controller.signal });
+      const res = await fetch(cfg.url, { 
+        signal: controller.signal,
+        cache: "no-store",
+        headers: {
+          "Cache-Control": "no-cache",
+          "Pragma": "no-cache"
+        }
+      });
       clearTimeout(timeoutId);
       if (!res.ok) throw new Error("Status " + res.status);
       

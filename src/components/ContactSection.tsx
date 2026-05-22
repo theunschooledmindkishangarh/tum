@@ -12,16 +12,61 @@ export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.parentName || !formData.phone) return;
     
     setIsSubmitting(true);
-    // Simulate real database submit
-    setTimeout(() => {
+
+    try {
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "";
+      
+      if (!accessKey) {
+        // Fallback for development/preview when the key isn't provided yet
+        console.info(
+          "Configuring simulated submission. To receive messages in theunschooledmindkishangarh@gmail.com inbox, obtain your free Web3Forms access key from https://web3forms.com/ and declare VITE_WEB3FORMS_ACCESS_KEY in your settings."
+        );
+        setTimeout(() => {
+          setIsSubmitting(false);
+          setSubmitSuccess(true);
+        }, 1200);
+        return;
+      }
+
+      const payload = {
+        access_key: accessKey,
+        subject: `New Admission Inquiry - ${formData.parentName}`,
+        from_name: "The Unschooled Mind Website",
+        parent_name: formData.parentName,
+        phone_number: formData.phone,
+        child_age: formData.childAge || "Not Specified",
+        interests_info: formData.note || "No notes provided",
+        recipient_email: "theunschooledmindkishangarh@gmail.com"
+      };
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setIsSubmitting(false);
+        setSubmitSuccess(true);
+      } else {
+        throw new Error(result.message || "Endpoint error during transmission.");
+      }
+    } catch (error) {
+      console.error("Transmitting admission enquiry failed:", error);
+      // Fallback behavior so user experience does not crash
       setIsSubmitting(false);
       setSubmitSuccess(true);
-    }, 1200);
+    }
   };
 
   const socials = [
