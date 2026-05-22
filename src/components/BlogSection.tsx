@@ -146,11 +146,6 @@ export default function BlogSection({ items }: BlogSectionProps) {
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    
-                    {/* Category Pill Overlays */}
-                    <span className="absolute top-4 left-4 px-3 py-1 rounded-lg bg-brand-yellow font-rounded font-black text-[9px] uppercase tracking-wider text-brand-green border border-brand-green shadow-[1.5px_1.5px_0px_0px_var(--color-brand-green)]">
-                      {post.category}
-                    </span>
                   </div>
 
                   {/* Content Area */}

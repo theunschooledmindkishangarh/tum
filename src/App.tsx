@@ -42,7 +42,9 @@ export default function App() {
 
         // Clean up old English blogs to present only the new requested Hindi blog post
         const hasOldBlogs = parsed.blogs && parsed.blogs.some((b: any) => b.title && (b.title.includes("Deserts") || b.title.includes("Clay Wheel") || b.title.includes("Avid Readers")));
-        if (hasOldBlogs || !parsed.blogs || parsed.blogs.length !== 1 || (parsed.blogs[0] && parsed.blogs[0].id === "1" && !parsed.blogs[0].title.startsWith("गर्मी की छुट्टियाँ"))) {
+        const isLatestImage = parsed.blogs && parsed.blogs[0] && parsed.blogs[0].image && parsed.blogs[0].image.includes("1XXv5LJHy45lHHnlhIoioH6x7_Zskh3sv");
+
+        if (hasOldBlogs || !parsed.blogs || parsed.blogs.length !== 1 || (parsed.blogs[0] && parsed.blogs[0].id === "1" && !parsed.blogs[0].title.startsWith("गर्मी की छुट्टियाँ")) || !isLatestImage) {
           parsed.blogs = initialDynamicContent.blogs;
           hasChanges = true;
         }

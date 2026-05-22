@@ -149,11 +149,6 @@ export default function AllBlogsPage({ items }: AllBlogsPageProps) {
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  
-                  {/* Category overlay */}
-                  <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-brand-yellow font-rounded font-black text-[8px] uppercase tracking-wider text-brand-green border border-brand-green shadow-[1px_1px_0px_0px_var(--color-brand-green)]">
-                    {post.category}
-                  </span>
                 </div>
 
                 {/* Body Content */}
