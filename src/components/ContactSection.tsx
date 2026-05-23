@@ -11,10 +11,66 @@ export default function ContactSection() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [errors, setErrors] = useState({
+    parentName: "",
+    phone: "",
+    childAge: ""
+  });
+
+  const handleInputChange = (field: "parentName" | "phone" | "childAge" | "note", value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (field !== "note") {
+      setErrors((prev) => ({ ...prev, [field]: "" }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = { parentName: "", phone: "", childAge: "" };
+    let isValid = true;
+
+    // Parent name: contain only text, no numbers
+    const nameVal = formData.parentName.trim();
+    if (!nameVal) {
+      newErrors.parentName = "Name is required.";
+      isValid = false;
+    } else if (/[0-9]/.test(nameVal)) {
+      newErrors.parentName = "Name can only contain letters and spaces (no numbers).";
+      isValid = false;
+    }
+
+    // Contact number: must contain only 10 digits and start with 6 to 9
+    const digitsOnly = formData.phone.trim();
+    if (!digitsOnly) {
+      newErrors.phone = "Contact number is required.";
+      isValid = false;
+    } else if (digitsOnly.length !== 10 || !/^\d+$/.test(digitsOnly)) {
+      newErrors.phone = "Contact number must contain only exactly 10 digits.";
+      isValid = false;
+    } else if (!/^[6-9]/.test(digitsOnly)) {
+      newErrors.phone = "First digit must be 6, 7, 8, or 9.";
+      isValid = false;
+    }
+
+    // Child age: min 0 and max 18
+    const ageRaw = formData.childAge.trim();
+    if (ageRaw !== "") {
+      const ageVal = Number(ageRaw);
+      if (isNaN(ageVal) || ageVal < 0 || ageVal > 18 || !Number.isInteger(ageVal)) {
+        newErrors.childAge = "Age must be an integer between 0 and 18.";
+        isValid = false;
+      }
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.parentName || !formData.phone) return;
+    
+    if (!validateForm()) {
+      return;
+    }
     
     setIsSubmitting(true);
 
@@ -22,7 +78,7 @@ export default function ContactSection() {
       // For static deployments on GitHub Pages, environment variables are not loaded dynamically.
       // You can paste your Web3Forms Access Key directly below!
       // To get a FREE key in 5 seconds (no logout/signup), go to: https://web3forms.com/ and enter your email "theunschooledmindkishangarh@gmail.com".
-      const HARDCODED_ACCESS_KEY = "38969609-a028-4741-8ce9-bfa17ce55cc5"; // PASTE YOUR KEY HERE (e.g. "1234abcd-12ab-34cd-56ef-1234567890ab")
+      const HARDCODED_ACCESS_KEY = ""; // PASTE YOUR KEY HERE (e.g. "1234abcd-12ab-34cd-56ef-1234567890ab")
       
       const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || HARDCODED_ACCESS_KEY || "";
       
@@ -202,40 +258,67 @@ export default function ContactSection() {
               <form onSubmit={handleSubmit} className="flex flex-col gap-4 font-rounded font-semibold text-xs text-brand-green">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="pname">Your Name *</label>
+                    <div className="flex justify-between items-center">
+                      <label htmlFor="pname">Your Name *</label>
+                      {errors.parentName && (
+                        <span className="text-[10px] text-red-500 font-mono font-medium animate-pulse">
+                          {errors.parentName}
+                        </span>
+                      )}
+                    </div>
                     <input
                       type="text"
                       id="pname"
                       required
                       placeholder="e.g. Ramesh Sharma"
                       value={formData.parentName}
-                      onChange={(e) => setFormData({ ...formData, parentName: e.target.value })}
-                      className="p-3 border-2 border-brand-green rounded-xl focus:ring-2 focus:ring-brand-clay focus:outline-none bg-brand-sand/15"
+                      onChange={(e) => handleInputChange("parentName", e.target.value)}
+                      className={`p-3 border-2 rounded-xl focus:ring-2 focus:ring-brand-clay focus:outline-none bg-brand-sand/15 transition-all ${
+                        errors.parentName ? "border-red-500 bg-red-50/5" : "border-brand-green"
+                      }`}
                     />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="pno">Contact Number *</label>
+                    <div className="flex justify-between items-center">
+                      <label htmlFor="pno">Contact Number *</label>
+                      {errors.phone && (
+                        <span className="text-[10px] text-red-500 font-mono font-medium animate-pulse">
+                          {errors.phone}
+                        </span>
+                      )}
+                    </div>
                     <input
                       type="tel"
                       id="pno"
                       required
-                      placeholder="e.g. +91 98765-43210"
+                      placeholder="e.g. 9876543210"
                       value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="p-3 border-2 border-brand-green rounded-xl focus:ring-2 focus:ring-brand-clay focus:outline-none bg-brand-sand/15"
+                      onChange={(e) => handleInputChange("phone", e.target.value)}
+                      className={`p-3 border-2 rounded-xl focus:ring-2 focus:ring-brand-clay focus:outline-none bg-brand-sand/15 transition-all ${
+                        errors.phone ? "border-red-500 bg-red-50/5" : "border-brand-green"
+                      }`}
                     />
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="child_age">Child's Current Age (Years)</label>
+                  <div className="flex justify-between items-center">
+                    <label htmlFor="child_age">Child's Current Age (Years)</label>
+                    {errors.childAge && (
+                      <span className="text-[10px] text-red-500 font-mono font-medium animate-pulse">
+                        {errors.childAge}
+                      </span>
+                    )}
+                  </div>
                   <input
                     type="number"
                     id="child_age"
                     placeholder="e.g. 7"
                     value={formData.childAge}
-                    onChange={(e) => setFormData({ ...formData, childAge: e.target.value })}
-                    className="p-3 border-2 border-brand-green rounded-xl focus:ring-2 focus:ring-brand-clay focus:outline-none bg-brand-sand/15"
+                    onChange={(e) => handleInputChange("childAge", e.target.value)}
+                    className={`p-3 border-2 rounded-xl focus:ring-2 focus:ring-brand-clay focus:outline-none bg-brand-sand/15 transition-all ${
+                      errors.childAge ? "border-red-500 bg-red-50/5" : "border-brand-green"
+                    }`}
                   />
                 </div>
 
@@ -246,7 +329,7 @@ export default function ContactSection() {
                     rows={3}
                     placeholder="e.g., painting, soil models, questions they ask lot..."
                     value={formData.note}
-                    onChange={(e) => setFormData({ ...formData, note: e.target.value })}
+                    onChange={(e) => handleInputChange("note", e.target.value)}
                     className="p-3 border-2 border-brand-green rounded-xl focus:ring-2 focus:ring-brand-clay focus:outline-none bg-brand-sand/15 resize-none"
                   />
                 </div>
@@ -305,6 +388,7 @@ export default function ContactSection() {
                 onClick={() => {
                   setSubmitSuccess(false);
                   setFormData({ parentName: "", phone: "", childAge: "", note: "" });
+                  setErrors({ parentName: "", phone: "", childAge: "" });
                 }}
                 className="clay-btn px-6 py-2.5 rounded-xl font-rounded font-bold text-xs"
               >
