@@ -22,7 +22,7 @@ export default function ContactSection() {
       // For static deployments on GitHub Pages, environment variables are not loaded dynamically.
       // You can paste your Web3Forms Access Key directly below!
       // To get a FREE key in 5 seconds (no logout/signup), go to: https://web3forms.com/ and enter your email "theunschooledmindkishangarh@gmail.com".
-      const HARDCODED_ACCESS_KEY = ""; // PASTE YOUR KEY HERE (e.g. "1234abcd-12ab-34cd-56ef-1234567890ab")
+      const HARDCODED_ACCESS_KEY = "38969609-a028-4741-8ce9-bfa17ce55cc5"; // PASTE YOUR KEY HERE (e.g. "1234abcd-12ab-34cd-56ef-1234567890ab")
       
       const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || HARDCODED_ACCESS_KEY || "";
       
