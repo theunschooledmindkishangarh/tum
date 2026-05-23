@@ -19,12 +19,17 @@ export default function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "";
+      // For static deployments on GitHub Pages, environment variables are not loaded dynamically.
+      // You can paste your Web3Forms Access Key directly below!
+      // To get a FREE key in 5 seconds (no logout/signup), go to: https://web3forms.com/ and enter your email "theunschooledmindkishangarh@gmail.com".
+      const HARDCODED_ACCESS_KEY = ""; // PASTE YOUR KEY HERE (e.g. "1234abcd-12ab-34cd-56ef-1234567890ab")
+      
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || HARDCODED_ACCESS_KEY || "";
       
       if (!accessKey) {
-        // Fallback for development/preview when the key isn't provided yet
+        // Fallback simulation for preview and local development when the key isn't provided yet
         console.info(
-          "Configuring simulated submission. To receive messages in theunschooledmindkishangarh@gmail.com inbox, obtain your free Web3Forms access key from https://web3forms.com/ and declare VITE_WEB3FORMS_ACCESS_KEY in your settings."
+          "Configuring simulated submission. To receive messages in theunschooledmindkishangarh@gmail.com inbox, obtain your free Web3Forms access key from https://web3forms.com/ and paste it inside HARDCODED_ACCESS_KEY in ContactSection.tsx or set VITE_WEB3FORMS_ACCESS_KEY."
         );
         setTimeout(() => {
           setIsSubmitting(false);
